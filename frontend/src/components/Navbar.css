@@ -1,0 +1,216 @@
+.main-container {
+    display: flex;
+  }
+  
+  .navbar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    padding: 0 30px;
+  }
+  
+  .navbar-logo {
+    flex: 1;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+
+  .menu-icon {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+
+  /* Dark Mode Styles */
+  .dark-mode .list-item-icon .fa-icon,
+  .dark-mode .navbar-icon {
+    color: #fff;
+  }
+  
+  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+
+  }
+
+  .navbar-image  {
+    width: 50px; /* Beispiel: Breite des Bildes anpassen */
+    height: auto; /* Beispiel: Höhe automatisch anpassen */
+    margin-top: 0; /* Beispiel: Abstand zum Icon */
+    padding-right: 10px;
+}
+
+.profile-picture {
+    width: 60px; /* Beispiel: Breite des Bildes anpassen */
+    height: auto; /* Beispiel: Höhe automatisch anpassen */
+    margin-top: 0; /* Beispiel: Abstand zum Icon */
+
+}
+  
+  .light-mode .MuiDivider-root {
+    width: 90%;
+    align-self: center;
+  }
+  
+  .dark-mode .MuiDivider-root {
+    background-color: #bbb; /* Helleres Grau für den Divider im Dark Mode */
+    width: 90%;
+    align-self: center;
+  }
+  
+  /* Placeholder text color for dark mode */
+  .dark-mode .search-input::placeholder {
+    color: #fff;
+  }
+  
+  .drawer {
+    display: block;
+    position: fixed;
+    top: 60px;
+    height: calc(100% - 60px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }
+  
+  .dark-mode-toggle {
+    margin-left: 10px;
+    color:  #fff;
+        order: 2;
+  }
+  
+  .css-vrk4dv {
+    padding: 16px;
+    text-align: center;
+    margin-top: 70px;
+    
+  }
+  
+  .drawer-paper {
+    width: 250px;
+    border-right: none;
+   box-shadow: 10px;
+  }
+  
+  .mobile-drawer .MuiPaper-root {
+    top: 60px;
+  }
+  
+  .notification-icon{
+    margin-left: 10px;
+    padding:10px;
+    color:  #fff;
+    order: 1;
+  }
+  
+  
+  .dark-mode .navbar {
+    background: #222428;
+  }
+  
+  .dark-mode p {
+    color: #fff;
+  }
+  
+  .dark-mode .search-form {
+    background-color: #222428;
+  }
+  
+  .dark-mode .search-input {
+    background-color: #222428;
+    color: #fff;
+  }
+  
+  .dark-mode .search-button {
+    background-color: #888;
+  }
+  
+  .dark-mode .drawer-paper {
+    background-color: #222428; /* Set the sidebar background to grey in dark mode */
+    color: #fff;
+  }
+  
+  .dark-mode .mobile-drawer .MuiPaper-root {
+    background-color: #222428; /* Set the mobile sidebar background to grey in dark mode */
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .nav-text {
+      display: none;
+    }
+  
+    .drawer {
+      display: none;
+    }
+  
+    .mobile-drawer {
+      display: block;
+    }
+  
+    .css-vrk4dv {
+      margin-top: 30px;
+    }
+  
+    .search-form {
+      display: none;
+    }
+  
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .navbar-logo {
+      flex: 1;
+    }
+  
+    .menu-icon {
+      display: block; /* Ensures menu icon is displayed */
+      order: 3;
+      color:  #fff;
+    }
+  
+    .notification-icon {
+      order: 1;
+    }
+  
+    .dark-mode-toggle {
+      order: 2;
+      margin-right: 20px;
+    }
+  }
+  
+  @media screen and (min-width: 1025px) {
+    .mobile-drawer {
+      display: none;
+    }
+  
+    .drawer {
+      display: block;
+    }
+  
+    .menu-icon {
+      display: none; /* Ensures menu icon is hidden on larger screens */
+    }
+  }
+  

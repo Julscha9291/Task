@@ -1,0 +1,158 @@
+.task-details-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-content h2 {
+    margin-bottom: 11px;
+}
+
+
+  .popup-content p {
+    margin-bottom: 20px;
+    display: flex;
+  }
+  
+  .close-button {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #888;
+  }
+  
+  .close-button:hover {
+    color: #555;
+  }
+  
+  .priority-button-popup {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 15%;
+    align-self: flex-end;
+    margin-right: 10px;
+   
+  }
+  
+  .priority-button-popup.urgent {
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 10px;
+}
+  
+  
+  .priority-button-popup.medium {
+    background-color: #ffc107;
+    margin-bottom: 10px;
+
+  }
+  
+  .priority-button-popup.low {
+    background-color: #4caf50;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+  .task-title-popup {
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.icon-container {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+  }
+  
+  .edit-icon {
+    margin-right: 20px;
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
+  }
+  
+  .delete-icon {
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
+  }
+
+  .subtask-progress {
+    font-size: 12px;
+    margin-top: 8px;
+    color:#555;
+  }
+  
+  .subtask-bar {
+    width: 60%;
+    height: 6px;
+    background-color: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .subtask-progress-fill {
+    height: 100%;
+    background-color: rgba(248, 12, 99, 0.8);
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  .subtask-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.subtask-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.subtask-list li {
+  display: flex;
+  margin-bottom: 8px; /* Abstand zwischen den Subtasks */
+  white-space: nowrap;
+  font-size: 14px; 
+}
+
+label {
+  margin-top: 0px;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+
+
+.subtask-label {
+  font-size: 14px; /* Beispiel für die Größe des Labels */
+  display: contents;/* Abstand zwischen Checkbox und Label */
+}
+
+
+

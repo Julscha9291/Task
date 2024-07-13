@@ -1,0 +1,134 @@
+.kanban-board {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f0f0f0;
+    margin-top: 100px;
+    margin-left:250px;
+}
+
+.board-column {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    max-width: 500px;
+    margin: 0 10px;
+}
+
+.contact-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: -5px;
+  }
+
+  .assigned-contacts {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .assigned-contacts li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .contact-info {
+    display: flex;
+    align-items: center;
+  }
+
+.column-title {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.task-content {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.add-button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-text {
+    margin: 0 0 0 5px;
+  }
+
+
+.priority-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.priority-button.urgent {
+    background-color: #f44336;
+    color: white;
+}
+
+.priority-button.medium {
+    background-color: #ffc107;
+}
+
+.priority-button.low {
+    background-color: #4caf50;
+    color: white;
+}
+
+.assigned-contacts-board {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+  }
+
+
+@media screen and (max-width: 1024px) {
+    .kanban-board {
+        flex-direction: column; /* Spalten untereinander anordnen */
+        align-items: center; /* In der Mitte des Bildschirms zentrieren */
+        padding: 20px 10px; /* Padding oben/unten 20px, links/rechts 10px */
+        margin-left: 20px;
+    }
+
+    .board-column {
+        margin: 0; /* Kein seitlicher Abstand */
+        margin-bottom: 20px; /* Abstand zwischen den Spalten */
+        width: 90%; /* Volle Breite einnehmen */
+        max-width: none; /* Maximale Breite aufheben */
+    }
+}
