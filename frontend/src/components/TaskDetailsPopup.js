@@ -82,10 +82,9 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
         </p>
         {task.due_date && <p><strong>Due Date:</strong> {formatDate(task.due_date)}</p>}
         {task.subtasks.length > 0 && (
-
-           <div className="subtask-input">
+          <div className="subtask-input">
             <p><strong>Subtasks:</strong></p>
-               <ul className="subtask-list">
+            <ul className="subtask-list">
               {task.subtasks.map((subtask, index) => (
                 <li key={index} className={subtask.completed ? 'completed' : ''}>
                   <input
@@ -115,13 +114,11 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
               {task.contacts.map(contact => (
                 <div key={contact.id} className="contact-info">
                   <div className="contact-initials" style={{ backgroundColor: contact.color }}>
-                    {contact.name
-                      .split(' ')
-                      .map(part => part.charAt(0))
-                      .join('')
-                      .toUpperCase()}
+                    {contact.first_name && contact.last_name
+                      ? `${contact.first_name.charAt(0).toUpperCase()}${contact.last_name.charAt(0).toUpperCase()}`
+                      : ''}
                   </div>
-                  <span>{contact.name}</span>
+                  <span>{contact.first_name} {contact.last_name}</span>
                 </div>
               ))}
             </div>

@@ -16,7 +16,8 @@ def get_unique_color():
     return random.choice(available_colors)
 
 class Contact(models.Model):
-    name = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200, default='Doe')
     color = models.CharField(max_length=7, default='#ffffff', unique=True)  # Make color unique
 
     def save(self, *args, **kwargs):

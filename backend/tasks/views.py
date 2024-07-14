@@ -70,4 +70,3 @@ class UserRegistrationView(generics.CreateAPIView):
     
     
     
-

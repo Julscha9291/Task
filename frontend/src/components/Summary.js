@@ -8,6 +8,8 @@ const Summary = () => {
   const [date, setDate] = useState(new Date());
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
+  const [firstName, setFirstName] = useState(''); // State für den Vornamen
+  const [lastName, setLastName] = useState('');   // State für den Nachnamen
 
   useEffect(() => {
     fetch('http://localhost:8000/api/summary/')
@@ -19,6 +21,8 @@ const Summary = () => {
       })
       .then(data => setSummary(data))
       .catch(error => setError(error.toString()));
+      setFirstName(localStorage.getItem('first_name') || ''); // Laden des Vornamens aus dem Local Storage
+      setLastName(localStorage.getItem('last_name') || '');   // Optional: Laden des Nachnamens aus dem Local Storage
   }, []);
 
   const getGreeting = () => {
@@ -99,7 +103,7 @@ const Summary = () => {
   return (
     <div className="summary-wrapper">
       <div className="summary-greeting">
-        <h2>{getGreeting()}, John!</h2>
+        <h2>{getGreeting()}, {firstName} {lastName}!</h2>
         <Calendar onChange={setDate} value={date} tileContent={tileContent} />
       </div>
       <div className="summary-container">

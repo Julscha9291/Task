@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTableList, faPenToSquare, faBell, faMoon, faSun, faUser, faClipboard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Divider, Typography, Box, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
-import { Link, useNavigate } from 'react-router-dom'; // useHistory aus react-router-dom importieren
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [firstName, setFirstName] = useState(''); // State für den Vornamen
+    const [lastName, setLastName] = useState(''); 
+    const [initials, setInitials] = useState('');  // State für den Nachnamen
     const isMobile = useMediaQuery('(max-width:1024px)');
-    const navigate = useNavigate(); // useHistory aus react-router-dom verwenden
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -17,9 +20,24 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');
+        localStorage.removeItem('first_name'); // Entfernen des Vornamens aus dem Local Storage
+        localStorage.removeItem('last_name');  // Optional: Entfernen des Nachnamens aus dem Local Storage
         navigate('/login');
-        window.location.reload(); // Nach dem Logout zur Login-Seite navigieren
+        window.location.reload();
     };
+
+    useEffect(() => {
+        const storedFirstName = localStorage.getItem('first_name') || '';
+        const storedLastName = localStorage.getItem('last_name') || '';
+
+        setFirstName(storedFirstName);
+        setLastName(storedLastName);
+
+        const firstInitial = storedFirstName.charAt(0).toUpperCase();
+        const lastInitial = storedLastName.charAt(0).toUpperCase();
+        setInitials(`${firstInitial}${lastInitial}`);
+
+    }, []);
 
     return (
         <div className="main-container">
@@ -56,9 +74,11 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
                     <Typography variant="h6" sx={{ mt: 1 }}>
-                        Welcome John! <br />
+                        Welcome {firstName} {lastName}! <br />
                         <Typography variant="body2" color="textSecondary">
-                            <img src={"/images/unknown.png"} alt="Profile" className="profile-picture" />
+                            <div className="profile-initials" style={{ backgroundColor: '#007bff' }}>
+                                {initials}
+                            </div>
                         </Typography>
                     </Typography>
                 </Box>

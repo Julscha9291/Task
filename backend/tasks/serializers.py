@@ -10,7 +10,7 @@ class SubtaskSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ('id', 'name', 'color')
+        fields = ('id', 'first_name','last_name', 'color')
 
 class TaskSerializer(serializers.ModelSerializer):
     subtasks = SubtaskSerializer(many=True, required=False)

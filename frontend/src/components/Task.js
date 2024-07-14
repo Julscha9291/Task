@@ -31,11 +31,11 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
   });
 
   const dummyContacts = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Smith' },
-    { id: 3, name: 'Michael Johnson' },
-    { id: 4, name: 'Emily Davis' },
-    { id: 5, name: 'David Brown' }
+    { id: 1, first_name: 'John', last_name: 'Doe' },
+    { id: 2, first_name: 'Jane', last_name: 'Smith' },
+    { id: 3, first_name: 'Michael', last_name: 'Johnson' },
+    { id: 4, first_name: 'Emily', last_name: 'Davis' },
+    { id: 5, first_name: 'David', last_name: 'Brown' }
   ];
 
   const [usedColors, setUsedColors] = useState({});
@@ -146,7 +146,8 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
         completed: subtask.completed
       })),
       contacts: assignedContacts.map(contact => ({
-        name: contact.name
+        first_name: contact.first_name,
+        last_name: contact.last_name
       }))
     };
 
@@ -206,7 +207,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
   return (
     <div className={`task-container ${show ? 'show' : ''}`}>
       <div className="popup-content">
-      <button className="close-button" onClick={() => { onClose(); navigate('/board'); }}>&times;</button>
+        <button className="close-button" onClick={() => { onClose(); navigate('/board'); }}>&times;</button>
         <div className="task-title-popup">
           <h2>{taskToEdit ? 'Edit Task' : 'Add Task'}</h2>
         </div>
@@ -249,7 +250,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
             <option value="">Select contacts to assign</option>
             {dummyContacts.map(contact => (
               <option key={contact.id} value={contact.id} disabled={selectedContacts.some(c => c.id === contact.id)}>
-                {contact.name}
+                {contact.first_name} {contact.last_name}
               </option>
             ))}
           </select>
@@ -261,13 +262,10 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
                     className="contact-initials"
                     style={{ backgroundColor: contact.color }}
                   >
-                    {contact.name
-                      .split(' ')
-                      .map(part => part.charAt(0))
-                      .join('')
-                      .toUpperCase()}
+                    {contact.first_name.charAt(0).toUpperCase()}
+                    {contact.last_name.charAt(0).toUpperCase()}
                   </div>
-                  <span>{contact.name}</span>
+                  <span>{contact.first_name} {contact.last_name}</span>
                 </div>
                 <button
                   type="button"

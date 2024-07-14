@@ -56,6 +56,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True 
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
 ]
@@ -79,6 +80,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+REST_USE_JWT = True
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

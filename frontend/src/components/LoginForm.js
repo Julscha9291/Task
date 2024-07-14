@@ -60,12 +60,39 @@ function LoginForm({ onLogin }) {
                 console.log('Server response:', data); // Debugging
                 if (data.access) {
                     localStorage.setItem('access_token', data.access);
+                    localStorage.setItem('user_id', data.user.id); // Speichern der Benutzer-ID für zukünftige Verwendungen
                     onLogin();
-                    navigate('/'); // Erfolgreicher Login, Weiterleitung zur Startseite oder Profilseite
+            
+                    // Fetch user profile data to get first_name and last_name
+                    fetch(`http://localhost:8000/api/profile/`, {
+                        headers: {
+                            'Authorization': `Bearer ${data.access}`,
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(profileData => {
+                        console.log('Profile Data:', profileData); // Debugging
+                        if (profileData.user && profileData.user.first_name) {
+                            localStorage.setItem('first_name', profileData.user.first_name); // Speichern des Vornamens im Local Storage
+                            localStorage.setItem('last_name', profileData.user.last_name); // Optional: Speichern des Nachnamens
+                        }
+                        navigate('/');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching profile data:', error);
+                        // Handle error fetching profile data
+                        navigate('/');
+                    });
                 } else {
                     console.error('Login failed, no access token returned');
                 }
             })
+            
             .catch((error) => {
                 console.error('Fetch error:', error); // Hier werden Fetch-Fehler behandelt
                 console.error('Error message:', error.message); // Zeigt die spezifische Fehlermeldung an
