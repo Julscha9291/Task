@@ -1,15 +1,15 @@
 
-from rest_framework import viewsets, generics, status, permissions
+from rest_framework import viewsets, generics, status
 from .models import Task, Subtask, Contact, CustomUser
-from .serializers import TaskSerializer, SubtaskSerializer, UserRegistrationSerializer
+from .serializers import TaskSerializer, SubtaskSerializer, UserRegistrationSerializer, UserProfileSerializer, UserListSerializer, ContactSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Count, Min
 from rest_framework import status
-from rest_framework.decorators import api_view
 import logging
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from rest_framework.permissions import IsAuthenticated
 
 class LoginView(APIView):
     def post(self, request):
@@ -28,6 +28,7 @@ class LoginView(APIView):
                         'email': user.email,
                         'first_name': user.first_name,
                         'last_name': user.last_name,
+                        'color': user.color,
                     }
                 })
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -43,6 +44,19 @@ class TaskViewSet(viewsets.ModelViewSet):
 class SubtaskViewSet(viewsets.ModelViewSet):
     queryset = Subtask.objects.all()
     serializer_class = SubtaskSerializer
+    
+class ContactViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer    
+    
+class UserContactView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        contact = Contact.objects.get(email=request.user.email)
+        serializer = ContactSerializer(contact)
+        return Response(serializer.data)    
 
 class SummaryView(APIView):
 
@@ -69,4 +83,15 @@ class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     
     
+class UserProfileView(APIView):
     
+    
+    def get(self, request):
+        user = request.user
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)    
+    
+    
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserListSerializer    

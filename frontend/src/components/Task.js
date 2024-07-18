@@ -30,26 +30,32 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
     category: false
   });
 
-  const dummyContacts = [
-    { id: 1, first_name: 'John', last_name: 'Doe' },
-    { id: 2, first_name: 'Jane', last_name: 'Smith' },
-    { id: 3, first_name: 'Michael', last_name: 'Johnson' },
-    { id: 4, first_name: 'Emily', last_name: 'Davis' },
-    { id: 5, first_name: 'David', last_name: 'Brown' }
-  ];
-
+  const [users, setUsers] = useState([]);
   const [usedColors, setUsedColors] = useState({});
   const [selectedContacts, setSelectedContacts] = useState([]);
 
-  const getRandomColor = () => {
-    const colors = ['#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8'];
-    const availableColors = colors.filter(color => !usedColors[color]);
-    if (availableColors.length === 0) {
-      return '#6c757d';
-    }
-    const randomIndex = Math.floor(Math.random() * availableColors.length);
-    return availableColors[randomIndex];
-  };
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/users/')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          return response.json();
+        } else {
+          throw new Error('Received non-JSON response');
+        }
+      })
+      .then(data => {
+        console.log('Fetched users:', data); // Log the fetched users
+        setUsers(data); // Set users state with received JSON data
+      })
+      .catch(error => {
+        console.error('Fetch error:', error);
+      });
+  }, []);
 
   useEffect(() => {
     if (taskToEdit) {
@@ -61,6 +67,12 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
       setAssignedContacts(taskToEdit.contacts || []);
       setSelectedPriority(taskToEdit.priority || null);
       setSelectedContacts(taskToEdit.contacts || []);
+      // Hier können Sie auch die Farben der zugewiesenen Kontakte aktualisieren
+      const colors = {};
+      taskToEdit.contacts.forEach(contact => {
+        colors[contact.color] = true;
+      });
+      setUsedColors(colors);
     }
   }, [taskToEdit]);
 
@@ -73,13 +85,13 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
 
   const handleAssignContact = event => {
     const selectedContactId = parseInt(event.target.value);
-    const selectedContact = dummyContacts.find(contact => contact.id === selectedContactId);
+    const selectedContact = users.find(user => user.id === selectedContactId);
 
-    if (selectedContact && !selectedContacts.some(contact => contact.id === selectedContact.id)) {
-      const color = getRandomColor();
-      setAssignedContacts([...assignedContacts, { ...selectedContact, color }]);
-      setUsedColors({ ...usedColors, [color]: true });
+    if (selectedContact && !assignedContacts.some(contact => contact.id === selectedContact.id)) {
+      setAssignedContacts([...assignedContacts, selectedContact]);
       setSelectedContacts([...selectedContacts, selectedContact]);
+      setUsedColors({ ...usedColors, [selectedContact.color]: true });
+      console.log('Assigned contact color:', selectedContact.color); // Log the color of the assigned contact
     }
   };
 
@@ -106,13 +118,12 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
     setSubtaskText('');
     setSubtasks([]);
     setAssignedContacts([]);
-    setSelectedContacts([]);
     setSelectedPriority(null);
     setUsedColors({});
     setFormErrors({
-      title: false,
-      description: false,
-      category: false
+        title: false,
+        description: false,
+        category: false
     });
   };
 
@@ -142,64 +153,79 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
       due_date: dueDate,
       priority: selectedPriority,
       subtasks: subtasks.map(subtask => ({
-        text: subtask.text,
-        completed: subtask.completed
+          text: subtask.text,
+          completed: subtask.completed
       })),
       contacts: assignedContacts.map(contact => ({
+        id: contact.id,  // ID des Kontakts
         first_name: contact.first_name,
-        last_name: contact.last_name
+        last_name: contact.last_name,
+        color: contact.color
       }))
     };
 
+    // Check for invalid contact IDs
+    const invalidContacts = taskData.contacts.filter(contact => !contact.id);
+    if (invalidContacts.length > 0) {
+      console.error('Invalid contacts detected:', invalidContacts);
+      return; // Prevent form submission
+    }
+
+    console.log('Task data to send:', taskData);
+
     if (taskToEdit) {
-      // Edit existing task
       fetch(`http://localhost:8000/api/tasks/${taskToEdit.id}/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskData),
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(taskData),
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
+          if (!response.ok) {
+              return response.json().then(errorData => {
+                  console.error('Error response:', errorData);
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              });
+          }
+          return response.json();
       })
       .then(data => {
-        console.log('Updated task:', data);
-        handleClearAll();
-        onClose();
-        navigate('/board'); // Redirect to the board
-        window.location.reload()
+          console.log('Updated task:', data);
+          handleClearAll();
+          onClose();
+          navigate('/board'); // Redirect to the board
+          window.location.reload();
       })
       .catch((error) => {
-        console.error('Fetch error:', error);
+          console.error('Fetch error:', error);
       });
     } else {
-      // Create new task
       fetch('http://localhost:8000/api/tasks/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskData),
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(taskData),
       })
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
+          if (!response.ok) {
+              return response.json().then(errorData => {
+                  console.error('Error response:', errorData);
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              });
+          }
+          return response.json();
       })
       .then(data => {
-        console.log('Created task:', data);
-        handleClearAll();
-        onClose();
-        navigate('/board'); // Redirect to the board
-        window.location.reload()
+          console.log('Created task:', data);
+          handleClearAll();
+          onClose();
+          navigate('/board'); // Redirect to the board
+          window.location.reload();
       })
       .catch((error) => {
-        console.error('Fetch error:', error);
+          console.error('Fetch error:', error);
       });
     }
   };
@@ -248,9 +274,9 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           <label>Assigned to</label>
           <select onChange={handleAssignContact}>
             <option value="">Select contacts to assign</option>
-            {dummyContacts.map(contact => (
-              <option key={contact.id} value={contact.id} disabled={selectedContacts.some(c => c.id === contact.id)}>
-                {contact.first_name} {contact.last_name}
+            {users.map(user => (
+              <option key={user.id} value={user.id} disabled={selectedContacts.some(c => c.id === user.id)}>
+                {user.first_name} {user.last_name}
               </option>
             ))}
           </select>
@@ -260,7 +286,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
                 <div className="contact-info">
                   <div
                     className="contact-initials"
-                    style={{ backgroundColor: contact.color }}
+                    style={{ backgroundColor: contact.color  }}
                   >
                     {contact.first_name.charAt(0).toUpperCase()}
                     {contact.last_name.charAt(0).toUpperCase()}

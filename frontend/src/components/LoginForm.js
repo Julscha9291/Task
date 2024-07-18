@@ -60,11 +60,13 @@ function LoginForm({ onLogin }) {
                 console.log('Server response:', data); // Debugging
                 if (data.access) {
                     localStorage.setItem('access_token', data.access);
-                    localStorage.setItem('user_id', data.user.id); // Speichern der Benutzer-ID für zukünftige Verwendungen
+                    localStorage.setItem('user_id', data.user.id);
+                    localStorage.setItem('first_name', data.user.first_name);
+                    localStorage.setItem('last_name', data.user.last_name);
+                    localStorage.setItem('color', data.user.color);
                     onLogin();
             
-                    // Fetch user profile data to get first_name and last_name
-                    fetch(`http://localhost:8000/api/profile/`, {
+                    fetch('http://localhost:8000/api/profile/', {
                         headers: {
                             'Authorization': `Bearer ${data.access}`,
                         },
@@ -77,15 +79,15 @@ function LoginForm({ onLogin }) {
                     })
                     .then(profileData => {
                         console.log('Profile Data:', profileData); // Debugging
-                        if (profileData.user && profileData.user.first_name) {
-                            localStorage.setItem('first_name', profileData.user.first_name); // Speichern des Vornamens im Local Storage
-                            localStorage.setItem('last_name', profileData.user.last_name); // Optional: Speichern des Nachnamens
+                        if (profileData.user) {
+                            localStorage.setItem('first_name', profileData.user.first_name);
+                            localStorage.setItem('last_name', profileData.user.last_name);
+                            localStorage.setItem('color', profileData.user.color);
                         }
                         navigate('/');
                     })
                     .catch(error => {
                         console.error('Error fetching profile data:', error);
-                        // Handle error fetching profile data
                         navigate('/');
                     });
                 } else {

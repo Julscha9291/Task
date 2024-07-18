@@ -8,9 +8,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [firstName, setFirstName] = useState(''); // State für den Vornamen
-    const [lastName, setLastName] = useState(''); 
-    const [initials, setInitials] = useState('');  // State für den Nachnamen
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [color, setColor] = useState('#6c757d'); // Standardfarbe, falls keine Farbe im Local Storage gefunden wird
+    const [initials, setInitials] = useState('');
     const isMobile = useMediaQuery('(max-width:1024px)');
     const navigate = useNavigate();
 
@@ -20,8 +21,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');
-        localStorage.removeItem('first_name'); // Entfernen des Vornamens aus dem Local Storage
-        localStorage.removeItem('last_name');  // Optional: Entfernen des Nachnamens aus dem Local Storage
+        localStorage.removeItem('first_name');
+        localStorage.removeItem('last_name');
+        localStorage.removeItem('color'); // Farbe ebenfalls entfernen
         navigate('/login');
         window.location.reload();
     };
@@ -29,9 +31,15 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     useEffect(() => {
         const storedFirstName = localStorage.getItem('first_name') || '';
         const storedLastName = localStorage.getItem('last_name') || '';
+        const storedColor = localStorage.getItem('color') || '#6c757d'; // Standardfarbe setzen, falls keine Farbe gefunden wird
+
+        console.log('Stored First Name:', storedFirstName); // Debugging
+        console.log('Stored Last Name:', storedLastName); // Debugging
+        console.log('Stored Color:', storedColor); // Debugging
 
         setFirstName(storedFirstName);
         setLastName(storedLastName);
+        setColor(storedColor);
 
         const firstInitial = storedFirstName.charAt(0).toUpperCase();
         const lastInitial = storedLastName.charAt(0).toUpperCase();
@@ -47,7 +55,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         <img src="/images/task.png" alt="Task Logo" className="navbar-image" />
                         Task
                     </Link>
-                    
+
                     <div className="notification-icon">
                         <FontAwesomeIcon icon={faBell} className="navbar-icon" />
                     </div>
@@ -76,7 +84,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     <Typography variant="h6" sx={{ mt: 1 }}>
                         Welcome {firstName} {lastName}! <br />
                         <Typography variant="body2" color="textSecondary">
-                            <div className="profile-initials" style={{ backgroundColor: '#007bff' }}>
+                            <div className="profile-initials" style={{ backgroundColor: color }}>
                                 {initials}
                             </div>
                         </Typography>
