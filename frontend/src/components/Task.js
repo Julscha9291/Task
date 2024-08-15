@@ -283,7 +283,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           <ul className="assigned-contacts">
             {assignedContacts.map(contact => (
               <li key={contact.id}>
-                <div className="contact-info">
+                <div className="contact-info-task">
                   <div
                     className="contact-initials"
                     style={{ backgroundColor: contact.color  }}

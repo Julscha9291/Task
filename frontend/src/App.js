@@ -5,6 +5,8 @@ import Board from './components/Board';
 import Summary from './components/Summary';
 import Task from './components/Task';
 import LoginForm from './components/LoginForm'; 
+import ContactList from './components/ContactList'; 
+import Impressum from './components/Impressum'; 
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false); // Zustandsvariable für den Anmeldestatus
@@ -58,7 +60,10 @@ const App = () => {
                   <Task show={true} onClose={handleCloseTask} taskToEdit={taskToEdit} />
                 }
               />
+              <Route exact path="/contactList" element={<ContactList />} />
+              <Route exact path="/impressum" element={<Impressum />} />
             </Routes>
+         
           </>
         )}
       </div>

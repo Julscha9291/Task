@@ -127,7 +127,7 @@ function LoginForm({ onLogin }) {
                     </div>
                     <div className={`login-container ${showLoginForm ? 'show' : ''}`}>
                         <div className="header">
-                            <h1>Task</h1>
+                            <h1 className="h1-login">Task</h1>
                         </div>
                         <div className="form-container">
                             <form onSubmit={handleSubmit}>

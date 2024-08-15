@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTableList, faPenToSquare, faBell, faMoon, faSun, faUser, faClipboard, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTableList, faPenToSquare, faBell, faUser, faClipboard, faSignOutAlt,faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Divider, Typography, Box, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
@@ -59,8 +59,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     <div className="notification-icon">
                         <FontAwesomeIcon icon={faBell} className="navbar-icon" />
                     </div>
-                    <div className="dark-mode-toggle" onClick={toggleDarkMode}>
-                        <FontAwesomeIcon icon={darkMode ? faSun : faMoon} className="dark-mode-icon" />
+                    <div className="logout-icon" onClick={handleLogout}>
+                        <FontAwesomeIcon icon={faSignOutAlt} className="dark-mode-icon" />
                     </div>
                     {isMobile && (
                         <div className="menu-icon" onClick={toggleMenu}>
@@ -96,8 +96,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         { text: 'Summary', icon: faTableList, link: '/' },
                         { text: 'Board', icon: faClipboard, link: '/board' },
                         { text: 'Add Task', icon: faPenToSquare, link: '/task' },
-                        { text: 'Contacts', icon: faUser, link: '/contacts' },
-                        { text: 'Logout', icon: faSignOutAlt, onClick: handleLogout }
+                        { text: 'Contacts', icon: faUser, link: '/contactList' },
+                        { text: 'Impressum', icon: faInfoCircle, link: '/impressum' },
                     ].map((item, index) => (
                         <ListItem button key={index} component={Link} to={item.link} onClick={item.onClick}>
                             <ListItemIcon>

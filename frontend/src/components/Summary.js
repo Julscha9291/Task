@@ -108,7 +108,6 @@ const Summary = () => {
       </div>
       <div className="summary-container">
         <h2>Summary</h2>
-        <h4>Everything in a Nutshell</h4>
         <div className="summary-grid">
           <Link to="/board" className="summary-item">
             <span className="summary-number">{summary.total_tasks}</span>

@@ -168,7 +168,7 @@ const Board = () => {
             <div className="task-content">{task.description}</div>
             <div className="assigned-contacts-board">
               {task.contacts && task.contacts.slice(0, 3).map(contact => (
-       <div className="contact-initials" style={{ backgroundColor: contact.color }}>
+       <div className="contact-initials-board" style={{ backgroundColor: contact.color }}>
        {contact.first_name && contact.last_name
          ? `${contact.first_name.charAt(0).toUpperCase()}${contact.last_name.charAt(0).toUpperCase()}`
          : ''}

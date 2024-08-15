@@ -105,7 +105,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   }
   
-  .dark-mode-toggle {
+  .logout-icon {
     margin-left: 10px;
     color:  #fff;
         order: 2;
@@ -207,7 +207,7 @@
       order: 1;
     }
   
-    .dark-mode-toggle {
+    .logout-icon {
       order: 2;
       margin-right: 20px;
     }

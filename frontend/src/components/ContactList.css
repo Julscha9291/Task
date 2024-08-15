@@ -1,0 +1,107 @@
+.contact-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+h1 {
+  margin-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+.header-divider {
+  width: 1px;
+  height: 30px;
+  margin: 0 10px;
+  background-color:#003B46;
+}
+
+.header-text {
+  font-size: 1.0em;
+  color:#003B46;
+}
+
+.contact-header {
+  display: flex;
+  margin-left: 20px;
+  margin-top: -80px;
+  align-items: center;
+}
+
+.contact-list-container {
+  display: flex;
+  margin-top: 140px;
+}
+
+.contactlist-list {
+  width: 300px;
+  border-right: 1px solid #ddd;
+  margin-left: 300px;
+}
+
+.contact-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-item:hover, .contact-item.selected {
+  background-color: #f0f0f0;
+}
+
+.contact-initials {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.contact-info-container {
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.contact-name {
+  font-weight: bold;
+}
+
+.contact-email {
+  color: #555;
+}
+
+.contact-details {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.contact-details-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contact-add-task {
+  color: blue;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.letter-header {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+hr {
+ width: 90%;
+ align-self: center;
+}
