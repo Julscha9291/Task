@@ -8,24 +8,23 @@ h1 {
   margin-left: 10px;
   display: flex;
   justify-content: flex-start;
-
 }
 
 .header-divider {
   width: 1px;
   height: 30px;
   margin: 0 10px;
-  background-color:#003B46;
+  background-color: #003B46;
 }
 
 .header-text {
   font-size: 1.0em;
-  color:#003B46;
+  color: #003B46;
 }
 
 .contact-header {
   display: flex;
-  margin-left: 20px;
+  margin-left: 300px;
   margin-top: -80px;
   align-items: center;
 }
@@ -33,12 +32,15 @@ h1 {
 .contact-list-container {
   display: flex;
   margin-top: 140px;
+      flex-direction: column;
 }
 
 .contactlist-list {
   width: 300px;
   border-right: 1px solid #ddd;
   margin-left: 300px;
+  height: calc(100vh - 140px); /* Berechnet die Höhe basierend auf dem Abstand zum oberen Rand */
+  overflow-y: auto; /* Macht die Kontaktliste scrollbar */
 }
 
 .contact-item {
@@ -65,14 +67,31 @@ h1 {
   font-weight: bold;
 }
 
-.contact-info-container {
+.contact-info-box {
   display: flex;
   flex-direction: column;
- 
+  margin-left: 10px;
 }
 
 .contact-name {
   font-weight: bold;
+}
+
+.contact-name-big {
+  font-size: 2em;
+}
+
+.contact-initials-big {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .contact-email {
@@ -82,6 +101,7 @@ h1 {
 .contact-details {
   flex-grow: 1;
   padding: 20px;
+  position: relative;
 }
 
 .contact-details-header {
@@ -91,9 +111,9 @@ h1 {
 }
 
 .contact-add-task {
-  color: blue;
+  color: #555;
   cursor: pointer;
-  margin-left: 10px;
+  margin:0px;
 }
 
 .letter-header {
@@ -102,6 +122,122 @@ h1 {
 }
 
 hr {
- width: 90%;
- align-self: center;
+  width: 90%;
+  align-self: center;
 }
+
+.header-divider-line {
+  width: 100%;
+  margin-top: 10px;
+  display: block;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  unicode-bidi: isolate;
+  overflow: hidden;
+  border-style: inset;
+  border-width: 1px;
+}
+
+.info-box-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.h3-box {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.p-box {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .contact-list-container {
+    margin-top: 50px;
+}
+
+  .contact-header {
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+
+  .contactlist-list {
+    margin-left: 10px;
+    width: calc(100% - 20px);
+    border-right: none;
+    margin-bottom: 10px;
+  }
+
+  .contact-details {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+  }
+
+  .back-button-container {
+    display: flex;
+    justify-content: flex-end; /* Verschiebt den Inhalt nach rechts */
+  }
+  
+  .back-button {
+    font-size: 30px; /* Größe des Icons */
+    color: #003B46; /* Farbe des Icons */
+    cursor: pointer; /* Zeigt an, dass es anklickbar ist */
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .contact-list-container {
+    margin-top: 50px;
+}
+
+  .contact-header {
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+
+  .contactlist-list {
+    margin-left: 10px;
+    width: calc(100% - 20px);
+    border-right: none;
+    margin-bottom: 10px;
+  }
+
+  .contact-details {
+    width: calc(100% - 20px);
+    margin-left: 10px;
+  }
+
+  .back-button-container {
+    display: flex;
+    justify-content: flex-end; /* Verschiebt den Inhalt nach rechts */
+  }
+  
+  .back-button {
+    font-size: 30px; /* Größe des Icons */
+    color: #003B46; /* Farbe des Icons */
+    cursor: pointer; /* Zeigt an, dass es anklickbar ist */
+  }
+}
+
+
+
+
+
+
+
+
+
+

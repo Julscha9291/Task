@@ -116,6 +116,44 @@ function LoginForm({ onLogin }) {
         setShowRegistration(false);
     };
 
+    const handleGuestLogin = () => {
+        // Hier die Gast-Zugangsdaten, die im Backend erstellt wurden
+        const guestEmail = 'guest@example.com';
+        const guestPassword = 'guestpassword';
+        
+        fetch('http://localhost:8000/api/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: guestEmail, password: guestPassword }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Server response:', data);
+            if (data.access) {
+                localStorage.setItem('access_token', data.access);
+                localStorage.setItem('user_id', data.user.id);
+                localStorage.setItem('first_name', data.user.first_name);
+                localStorage.setItem('last_name', data.user.last_name);
+                localStorage.setItem('color', data.user.color);
+                onLogin();
+                navigate('/');  // Weiterleiten zur Startseite oder zum Dashboard
+            } else {
+                console.error('Guest login failed, no access token returned');
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    };
+    
+
     return (
         <div className="login-page">
             {showRegistration ? (
@@ -140,7 +178,7 @@ function LoginForm({ onLogin }) {
                                 <button onClick={handleSignUpClick} className="sign-button">Sign up!</button>
                             </p>
                             <p className="guest-text">
-                                <button onClick={handleSignUpClick} className="guest-button">Guest-Login</button>
+                                <button onClick={handleGuestLogin} className="guest-button">Guest-Login</button>
                             </p>
                         </div>
                     </div>

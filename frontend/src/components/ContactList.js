@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ContactList.css'; // Erstellen Sie eine entsprechende CSS-Datei für das Styling
+import './ContactList.css'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 const ContactList = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [taskSummary, setTaskSummary] = useState(null);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const navigate = useNavigate(); // Verwende den useNavigate-Hook
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/users/')
@@ -25,10 +32,62 @@ const ContactList = () => {
       .catch(error => {
         console.error('Error fetching users:', error);
       });
+
+    // Check screen size for mobile view
+    const checkScreenSize = () => {
+      setIsMobileView(window.innerWidth <= 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  const handleAddTaskClick = () => {
+    navigate('/task'); // Verwende navigate zur /task-Seite
+  };
+
   const handleUserClick = (user) => {
-    setSelectedUser(user);
+    fetch(`http://localhost:8000/api/users/${user.id}/user-summary/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        setSelectedUser(user);
+        setTaskSummary(data);
+    })
+    .catch(error => {
+        console.error('Error fetching task summary:', error);
+    });
+  };
+
+  const handleBackClick = () => {
+    setSelectedUser(null);
+  };
+
+  const mapCategoryName = (category) => {
+    switch (category) {
+      case 'inProgress':
+        return 'in Progress';
+      case 'awaitingFeedback':
+        return 'awaiting Feedback';
+      default:
+        return category.charAt(0).toUpperCase() + category.slice(1); // Großbuchstabe am Anfang
+    }
+  };
+
+  const sortCategories = (categories) => {
+    const order = ['toDo', 'inProgress', 'awaitingFeedback', 'done'];
+    return categories.sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
   };
 
   const renderUsers = () => {
@@ -63,33 +122,60 @@ const ContactList = () => {
     });
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
   return (
     <div className="contact-list-container">
-      <div className="contact-wrapper">
-        <div className="contactlist-list">
-        <div className="contact-header">
-          <h1>Contacts</h1>
-          <div className="header-divider"></div>
-          <span className="header-text">better together</span>
-        </div>
-          {renderUsers()}
-        </div>
+      <div className="contact-header">
+        <h1>Contacts</h1>
+        <div className="header-divider"></div>
+        <span className="header-text">better together</span>
+      </div>
+      <div className={`contact-wrapper ${isMobileView && selectedUser ? 'mobile-details-view' : ''}`}>
+        {!selectedUser || !isMobileView ? (
+          <div className="contactlist-list">
+            {renderUsers()}
+          </div>
+        ) : null}
+        
         {selectedUser && (
           <div className="contact-details">
+            {isMobileView && (
+              <div className="back-button-container">
+              <div className="back-button" onClick={handleBackClick}>
+              <FontAwesomeIcon icon={faArrowLeft} />
+              </div>
+            </div>
+
+            )}
             <div className="contact-details-header">
-              <div className="contact-initials" style={{ backgroundColor: selectedUser.color }}>
+              <div className="contact-initials-big" style={{ backgroundColor: selectedUser.color }}>
                 {selectedUser.first_name.charAt(0).toUpperCase()}{selectedUser.last_name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <div className="contact-name">{selectedUser.first_name} {selectedUser.last_name}</div>
-                <div className="contact-add-task">+ Add Task</div>
+                <div className="contact-name-big">{selectedUser.first_name} {selectedUser.last_name}</div>
               </div>
             </div>
-            <div className="contact-info">
-              <h3>Contact Information</h3>
+            <hr className="header-divider-line"/>
+            <div className="contact-info-box">
+              <h3 className="h3-box">Contact Information</h3>
               <p>Email: <a href={`mailto:${selectedUser.email}`}>{selectedUser.email}</a></p>
-              <p>Phone: {selectedUser.phone}</p>
-              <button>Edit Contact</button>
+              <div className="info-box"> 
+                <div className="info-box-header"> 
+                  <h3 className="h3-box">Tasks Information</h3>
+                  <div className="contact-add-task" onClick={handleAddTaskClick}>+ Add Task</div>
+                </div>
+                <p className='p-box'>Tasks in Board: {taskSummary?.total_tasks}</p>
+                {taskSummary && sortCategories(taskSummary.tasks_by_category).map(category => (
+                  <p key={category.category}>{mapCategoryName(category.category)}: {category.count}</p>
+                ))}
+                {taskSummary?.next_deadline && (
+                  <p>Next Deadline: {formatDate(taskSummary.next_deadline)}</p>
+                )}
+              </div>
             </div>
           </div>
         )}

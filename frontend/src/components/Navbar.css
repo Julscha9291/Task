@@ -84,16 +84,17 @@
     color: #fff;
   }
   .profile-initials {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
+    display: flex;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     line-height: 40px;
-    text-align: center;
-    font-size: 18px;
+    font-size: 2em;
     font-weight: bold;
     color: white;
     margin-right: 8px;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -165,6 +166,12 @@
   .dark-mode .mobile-drawer .MuiPaper-root {
     background-color: #222428; /* Set the mobile sidebar background to grey in dark mode */
   }
+
+  .css-r40f8v-MuiTypography-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
   
   @media screen and (max-width: 1024px) {
     .nav-text {
