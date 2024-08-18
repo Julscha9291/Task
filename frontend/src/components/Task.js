@@ -195,7 +195,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           handleClearAll();
           onClose();
           navigate('/board'); // Redirect to the board
-          window.location.reload();
+         // window.location.reload();
       })
       .catch((error) => {
           console.error('Fetch error:', error);
@@ -218,11 +218,13 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           return response.json();
       })
       .then(data => {
+         // window.location.reload();
           console.log('Created task:', data);
           handleClearAll();
           onClose();
           navigate('/board'); // Redirect to the board
-          window.location.reload();
+          navigate('/board'); // Redirect to the board
+         
       })
       .catch((error) => {
           console.error('Fetch error:', error);

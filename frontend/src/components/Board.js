@@ -5,8 +5,10 @@ import './Board.css';
 import Task from './Task';
 import TaskDetailsPopup from './TaskDetailsPopup';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useNavigate } from 'react-router-dom';
 
 const Board = () => {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState({
     todo: [],
     inProgress: [],
@@ -42,6 +44,7 @@ const Board = () => {
   };
 
   const toggleTask = () => {
+    navigate('/task'); // Redirect to the board
     setShowTask(!showTask);
   };
 
@@ -58,15 +61,13 @@ const Board = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const createdTask = await response.json();
-      setTasks(prevTasks => ({
-        ...prevTasks,
-        [createdTask.category]: [...prevTasks[createdTask.category], createdTask],
-      }));
+      await fetchTasks(); // Aktualisiere die Aufgabenliste
       setShowTask(false);
     } catch (error) {
       console.error('Error creating task:', error);
     }
   };
+  
 
   const openTaskDetails = (task) => {
     setSelectedTask(task);

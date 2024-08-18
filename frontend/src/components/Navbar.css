@@ -129,13 +129,45 @@
     top: 60px;
   }
   
-  .notification-icon{
-    margin-left: 10px;
-    padding:10px;
-    color:  #fff;
-    order: 1;
-  }
-  
+ /* Hinzufügen eines roten Kreises um die Benachrichtigungszahl */
+.notification-icon {
+  margin-left: 10px;
+  padding: 10px;
+  color: #fff;
+  order: 1;
+  position: relative;
+  display: inline-block; /* Um das Benachrichtigungspopup relativ zu positionieren */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 4px;
+  width: 200px;
+  z-index: 1000;
+}
+
+.notification-count {
+  position: absolute;
+  top: -5px; /* Etwas höher als die Glocke */
+  right: -10px; /* Etwas rechts von der Glocke */
+  background-color: red; /* Hintergrundfarbe des Kreises */
+  color: white; /* Textfarbe der Zahl */
+  border-radius: 50%; /* Rundung des Kreises */
+  width: 20px; /* Breite des Kreises */
+  height: 20px; /* Höhe des Kreises */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem; /* Kleinere Schriftgröße */
+  font-weight: bold;
+  margin-right: 10px;
+}
+
   
   .dark-mode .navbar {
     background: #222428;

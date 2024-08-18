@@ -1,8 +1,10 @@
 from rest_framework import serializers
-from .models import Task, Subtask, Contact,CustomUser
+from .models import Task, Subtask, Contact,CustomUser, Notification
 from django.contrib.auth.models import User
 import random
 from rest_framework.exceptions import ValidationError
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 def get_unique_color():
     colors = [
@@ -77,9 +79,39 @@ class TaskSerializer(serializers.ModelSerializer):
         for contact_data in contacts_data:
             contact, created = Contact.objects.get_or_create(**contact_data)
             task.contacts.add(contact)
+            
+                # Benachrichtigung an alle Clients senden
+        self.send_task_notification(task)
+        
         return task
 
+    def send_task_notification(self, task):
+        # Erstelle eine Benachrichtigung
+        contacts = task.contacts.all()
+        for contact in contacts:
+            notification = Notification.objects.create(task=task, contacts=contact)
+            
+            # Serialisiere die Benachrichtigung
+            serializer = NotificationSerializer(notification)
+            message = serializer.data
 
+            # Holen Sie sich den Channel Layer
+            channel_layer = get_channel_layer()
+            
+            # Bereiten Sie die Nachricht vor
+            message = {
+                'type': 'new_task_notification',
+                'notification': message
+            }
+
+            # Senden Sie die Nachricht an die Gruppe 'notifications'
+            async_to_sync(channel_layer.group_send)(
+                'notifications',  # Der Name der Gruppe, an die gesendet werden soll
+                {
+                    'type': 'send_notification',
+                    'message': message
+                }
+            )
 
     def update(self, instance, validated_data):
         if self.context['request'].method == 'PATCH':
@@ -107,3 +139,9 @@ class TaskSerializer(serializers.ModelSerializer):
             instance.contacts.add(contact)
 
         return instance
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ('id', 'contacts', 'task', 'created_at', 'is_read')
