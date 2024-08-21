@@ -9,6 +9,8 @@
   .add-button p {
     margin: 0 0 0 5px;
   }
+
+
   
   .task-container {
     position: fixed;
@@ -74,6 +76,7 @@
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-family: arial;
   }
   
   
@@ -160,7 +163,7 @@
 
   }
   
-  .clear-button, .create-button {
+  .clear-button, .create-button  {
     padding: 10px 20px;
     margin-left: 10px;
     border: none;
@@ -173,8 +176,16 @@
   }
   
   .create-button {
-    background-color: #003B46;
+    background-color:rgba(248, 12, 99, 0.8);
     color: white;
+  }
+
+  .clear-button-add {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
   
   .task-container .subtask-list {
@@ -228,7 +239,6 @@
   font-size: 18px;
   font-weight: bold;
   margin-right: 5px;
-  margin-top:5px;
 }
 
 .remove-contact {
@@ -268,6 +278,21 @@
     width: 90%;
     overflow-y: scroll;
   }
+
+  .header-board {
+    margin-left: 50px;
+}
+
+.new-task-button {
+
+  margin-left: 50px;
+
+}
+
+.column-title {
+  font-size: 30px;
+  font-weight: bold;
+}
 
 }
 

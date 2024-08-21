@@ -5,8 +5,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import './Task.css';
+import PropTypes from 'prop-types';
 
-const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
+const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory }) => {
   const navigate = useNavigate();
 
   const categories = [
@@ -18,7 +19,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(initialCategory || '');
   const [dueDate, setDueDate] = useState(null);
   const [subtaskText, setSubtaskText] = useState('');
   const [subtasks, setSubtasks] = useState([]);
@@ -33,7 +34,6 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
   const [users, setUsers] = useState([]);
   const [usedColors, setUsedColors] = useState({});
   const [selectedContacts, setSelectedContacts] = useState([]);
-
 
   useEffect(() => {
     fetch('http://localhost:8000/api/users/')
@@ -61,20 +61,17 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
     if (taskToEdit) {
       setTitle(taskToEdit.title);
       setDescription(taskToEdit.description);
-      setCategory(taskToEdit.category);
+      setCategory(taskToEdit.category || ''); // Handle undefined category
       setDueDate(taskToEdit.due_date ? new Date(taskToEdit.due_date) : null);
       setSubtasks(taskToEdit.subtasks || []);
       setAssignedContacts(taskToEdit.contacts || []);
       setSelectedPriority(taskToEdit.priority || null);
-      setSelectedContacts(taskToEdit.contacts || []);
-      // Hier können Sie auch die Farben der zugewiesenen Kontakte aktualisieren
-      const colors = {};
-      taskToEdit.contacts.forEach(contact => {
-        colors[contact.color] = true;
-      });
-      setUsedColors(colors);
+    } else {
+      setCategory(initialCategory || ''); // Set category to an empty string if undefined
     }
-  }, [taskToEdit]);
+  }, [taskToEdit, initialCategory]);
+  
+  
 
   const handleAddSubtask = () => {
     if (subtaskText.trim()) {
@@ -223,7 +220,6 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           handleClearAll();
           onClose();
           navigate('/board'); // Redirect to the board
-          navigate('/board'); // Redirect to the board
          
       })
       .catch((error) => {
@@ -261,17 +257,17 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
           {formErrors.description && <div className="error-text">This field is required</div>}
           <label>Category</label>
           <select
-            value={category}
-            onChange={e => setCategory(e.target.value)}
-            className={formErrors.category ? 'error' : ''}
-          >
-            <option value="">Select task category</option>
-            {categories.map(category => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+              value={category}
+              onChange={e => setCategory(e.target.value)}
+              className={formErrors.category ? 'error' : ''}
+            >
+              <option value="">Select task category</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
           {formErrors.category && <div className="error-text">This field is required</div>}
           <label>Assigned to</label>
           <select onChange={handleAssignContact}>
@@ -347,7 +343,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
               onChange={e => setSubtaskText(e.target.value)}
               placeholder="Add new subtask"
             />
-            <button type="button" onClick={handleAddSubtask}>
+            <button type="button" className="clear-button-add" onClick={handleAddSubtask}>
               Add
             </button>
           </div>
@@ -379,6 +375,16 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit }) => {
       </form>
     </div>
   );
+};
+
+
+Task.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  createTask: PropTypes.func.isRequired,
+  editTask: PropTypes.func.isRequired,
+  taskToEdit: PropTypes.object,
+  initialCategory: PropTypes.string,
 };
 
 export default Task;

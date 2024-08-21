@@ -131,8 +131,7 @@ const ContactList = () => {
     <div className="contact-list-container">
       <div className="contact-header">
         <h1>Contacts</h1>
-        <div className="header-divider"></div>
-        <span className="header-text">better together</span>
+    
       </div>
       <div className={`contact-wrapper ${isMobileView && selectedUser ? 'mobile-details-view' : ''}`}>
         {!selectedUser || !isMobileView ? (

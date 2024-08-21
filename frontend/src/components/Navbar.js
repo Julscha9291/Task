@@ -1,75 +1,88 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTableList, faPenToSquare, faBell, faUser, faClipboard, faSignOutAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Divider, Typography, Box, useMediaQuery, Snackbar, Alert, Menu, MenuItem } from '@mui/material';
+import { faTableList, faPenToSquare, faBell, faUser, faClipboard, faSignOutAlt, faInfoCircle, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton, Divider, Typography, Box, useMediaQuery, Snackbar, Alert } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Calendar from 'react-calendar'; 
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [color, setColor] = useState('#6c757d'); // Standardfarbe, falls keine Farbe im Local Storage gefunden wird
+    const [color, setColor] = useState('#6c757d');
     const [initials, setInitials] = useState('');
     const isMobile = useMediaQuery('(max-width:1024px)');
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState([]);
     const [newNotificationCount, setNewNotificationCount] = useState(0);
-    const [notificationDetails, setNotificationDetails] = useState([]); 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
-
-    // Snackbar Zustände
+    const [notificationDetails, setNotificationDetails] = useState([]);
+    const [notificationDropdownOpen, setNotificationDropdownOpen] = useState(false);
+    const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const location = useLocation(); // Hook to get the current route
+
+    const notificationDropdownRef = useRef(null);
+    const profileDropdownRef = useRef(null);
+
+    const [calendarVisible, setCalendarVisible] = useState(false);
+    const [date, setDate] = useState(new Date());
+
+    const handleCalendarClick = () => {
+        setCalendarVisible(!calendarVisible); // Toggle visibility
+    };
+
+    
+
+    
+
+    // Set to track already processed task IDs to avoid duplicates
+    const processedTaskIds = useRef(new Set());
 
     useEffect(() => {
         const ws = new WebSocket('ws://localhost:8000/ws/notifications/');
-
 
         ws.onopen = () => {
             console.log("WebSocket is open now.");
         };
 
         ws.onmessage = async function(event) {
-            console.log("Event received:", event); // Ausgabe des gesamten Events
             const data = JSON.parse(event.data);
-            console.log("Parsed data:", data);
-        
+
             if (data.type === 'new_task_notification') {
-                console.log("Processing notification:", data.notification);
-        
-                const { task: taskId } = data.notification; // ID des Tasks aus der Benachrichtigung
-                // Fetch Task Details
-                try {
-                    const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                const { task: taskId } = data.notification;
+
+                // Check if the task has already been processed
+                if (!processedTaskIds.current.has(taskId)) {
+                    processedTaskIds.current.add(taskId); // Mark task as processed
+
+                    // Fetch Task Details
+                    try {
+                        const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const taskDetails = await response.json();
+
+                        setNotificationDetails(prevDetails => [...prevDetails, taskDetails]);
+
+                        // Update notifications and increment counter
+                        setNotifications(prev => [data.notification, ...prev.filter(n => n.task !== taskId)]);
+                        setNewNotificationCount(prevCount => prevCount + 1);
+
+                        setSnackbarOpen(true);
+                    } catch (error) {
+                        console.error('Error fetching task details:', error);
                     }
-                    const taskDetails = await response.json();
-                    console.log("Fetched Task Details:", taskDetails);
-                    
-                    // Füge die neuen Task-Details zur Liste hinzu
-                    setNotificationDetails(prevDetails => [...prevDetails, taskDetails]);
-                    
-                    // Aktualisiere die Benachrichtigungen
-                    setNotifications(prev => [data.notification, ...prev]);
-                    setNewNotificationCount(prevCount => prevCount + 1);
-                    
-                    setSnackbarOpen(true);
-                } catch (error) {
-                    console.error('Error fetching task details:', error);
                 }
-            } else {
-                console.log("Unexpected message type:", data.type);
             }
         };
-        
 
         ws.onclose = function(e) {
             console.log('WebSocket closed unexpectedly');
@@ -84,23 +97,25 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         };
     }, []);
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (notificationDropdownRef.current && !notificationDropdownRef.current.contains(event.target)) {
+                setNotificationDropdownOpen(false);
+            }
+            if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+                setProfileDropdownOpen(false);
+            }
+        }
 
-    const handleLogout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('first_name');
-        localStorage.removeItem('last_name');
-        localStorage.removeItem('color'); // Farbe ebenfalls entfernen
-        navigate('/login');
-        window.location.reload();
-    };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     useEffect(() => {
         const storedFirstName = localStorage.getItem('first_name') || '';
         const storedLastName = localStorage.getItem('last_name') || '';
-        const storedColor = localStorage.getItem('color') || '#6c757d'; // Standardfarbe setzen, falls keine Farbe gefunden wird
+        const storedColor = localStorage.getItem('color') || '#6c757d';
 
         setFirstName(storedFirstName);
         setLastName(storedLastName);
@@ -109,69 +124,143 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         const firstInitial = storedFirstName.charAt(0).toUpperCase();
         const lastInitial = storedLastName.charAt(0).toUpperCase();
         setInitials(`${firstInitial}${lastInitial}`);
-
     }, []);
 
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
     const handleSnackbarClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+        if (reason === 'clickaway') return;
         setSnackbarOpen(false);
     };
 
     const handleBellClick = () => {
-        setDropdownOpen(!dropdownOpen);
-        setNewNotificationCount(0); // Benachrichtigungszähler zurücksetzen
+        setNotificationDropdownOpen(prevState => !prevState);
+        setNewNotificationCount(0);
     };
-    
-    const handleCloseDropdown = () => {
-        setDropdownOpen(false);
+
+    const handleProfileClick = () => {
+        setProfileDropdownOpen(prevState => !prevState);
     };
 
     const handleGoToBoard = () => {
-        handleCloseDropdown(); // Schließt das Dropdown-Menü
-        setNotificationDetails([]); // Löscht die Task-Details
-        setNotifications([]); // Löscht die Benachrichtigungen
+        setNotificationDropdownOpen(false);
+        setNotificationDetails([]);
+        setNotifications([]);
         navigate('/board');
+    };
+
+    const handleLogout = () => {
+        console.log("Logout initiated"); // Debugging
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('first_name');
+        localStorage.removeItem('last_name');
+        localStorage.removeItem('color');
+        navigate('/login');
+        window.location.reload();
+
     };
 
     return (
         <div className="main-container">
-            <nav className={`navbar ${darkMode ? 'dark-mode' : ''}`} style={{ backgroundColor: '#003B46' }}>
-                <div className="navbar-container">
-                    <Link to="/" className="navbar-logo">
-                        <img src="/images/task.png" alt="Task Logo" className="navbar-image" />
-                        Task
+            <nav className={`navbar ${darkMode ? 'dark-mode' : ''}`} style={{ backgroundColor: '#f1f7fa' }}>
+                <Link to="/" className="media-logo">
+                        <img src="/images/task.png" alt="Task Logo" className="task-logo" />
                     </Link>
-    
+            <div className="navbar-container">
+                <div className="calendar-container">
+                        <div className="calendar-icon" onClick={handleCalendarClick}>
+                            <FontAwesomeIcon icon={faCalendarAlt} className="navbar-icon" />
+                        </div>
+                        {calendarVisible && (
+                            <div className="calendar-dropdown">
+                                <div className="dropdown-arrow"></div>
+                                <Calendar onChange={setDate} value={date} />
+                            </div>
+                        )}
+                    </div>
+
+     
+
                     <div className="notification-icon" onClick={handleBellClick}>
                         <FontAwesomeIcon icon={faBell} className="navbar-icon" />
                         {newNotificationCount > 0 && (
                             <span className="notification-count">{newNotificationCount}</span>
                         )}
-                  {dropdownOpen && (
-                        <Box className="dropdown-menu" sx={{ padding: 2, borderRadius: 1, boxShadow: 3, backgroundColor: 'background.paper' }}>
-                            <Typography variant="h6" sx={{ paddingBottom: 1 }}>
-                                New Task Details
-                            </Typography>
-                            {notificationDetails.length > 0 ? (
-                                notificationDetails.map((task, index) => (
-                                    <Box key={index} sx={{ marginBottom: 2 }}>
-                                        <Typography variant="subtitle1">Name: {task.title || 'N/A'}</Typography>
-                                        <Typography variant="subtitle1">Description: {task.description || 'N/A'}</Typography>
-                                        <button onClick={handleGoToBoard}>Go to Board</button>
-                                    </Box>
-                                ))
-                            ) : (
-                                <Typography variant="subtitle1">No details available</Typography>
-                            )}
-                        </Box>
-                    )}
-                                     </div>
-    
-                    <div className="logout-icon" onClick={handleLogout}>
-                        <FontAwesomeIcon icon={faSignOutAlt} className="dark-mode-icon" />
+                        {notificationDropdownOpen && (
+                            <div ref={notificationDropdownRef} className="notification-dropdown">
+                                <div className="dropdown-arrow"></div>
+                                <Typography variant="h6" className="dropdown-header">
+                                    Notification
+                                </Typography>
+                                {notifications.length > 0 ? (
+                                    notifications.map((task, index) => {
+                                        const taskDetail = notificationDetails.find(detail => detail.id === task.task);
+                         
+
+                                        return (
+                                            <div key={index} className="notification-item">
+                                                <div className="notification-content">
+                                                    {/* Initialen des Kontakts links */}
+                                                    <div className="contact-initials-board" style={{ backgroundColor: color }}>
+                                                        {initials}
+                                                    </div>
+
+                                                    {/* Task-Details rechts */}
+                                                    <div>
+                                                        <Typography variant="subtitle2" className="notification-title" style={{ fontWeight: 'bold' }}>
+                                                            {firstName} {lastName} assigned a new task.
+                                                        </Typography>
+                                                        {taskDetail ? (
+                                                            <Box className="notification-box" sx={{ marginBottom: 2 }}>
+                                                                <Typography variant="subtitle2" className="notification-title">Title: {taskDetail.title || 'N/A'}</Typography>
+                                                                <Typography variant="subtitle2" className="notification-title">Category: {taskDetail.category || 'N/A'}</Typography>
+                                                            </Box>
+                                                        ) : (
+                                                            <Typography variant="body2" className="text-dropdown">
+                                                                Keine Aufgaben verfügbar.
+                                                            </Typography>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                {index < notifications.length - 1}
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <Typography variant="body2" className="no-notifications">
+                                        No new notifications
+                                    </Typography>
+                                )}
+
+                                <div className="button">
+                                    <button type="submit" className="create-button" onClick={handleGoToBoard}>View tasks</button>
+                                </div>
+                            </div>
+                        )}
                     </div>
+                    
+
+                    <div className="user" onClick={handleProfileClick} ref={profileDropdownRef} >
+                        <div className="profile-container" >
+                            <div className="contact-initials-nav" style={{ backgroundColor: color }} >
+                                {initials}
+                            </div>
+                        </div>
+                        <div className="user-name" >
+                            {firstName} {lastName}
+                        </div>
+
+                        {profileDropdownOpen && (
+                            <div className="profile-dropdown" >
+                                <div className="dropdown-arrow-profile"></div>
+                                <div className="dropdown-item" onClick={handleLogout}>
+                                    <FontAwesomeIcon icon={faSignOutAlt} className="dropdown-icon" />
+                                    <span>Logout</span>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                
                     {isMobile && (
                         <div className="menu-icon" onClick={toggleMenu}>
                             <IconButton edge="start" color="inherit" aria-label="menu">
@@ -181,6 +270,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     )}
                 </div>
             </nav>
+
             <Drawer
                 variant={isMobile ? "temporary" : "permanent"}
                 open={isMobile ? menuOpen : true}
@@ -191,34 +281,45 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}
             >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
-                    <Typography variant="h6" sx={{ mt: 1 }}>
-                        Welcome {firstName} {lastName}! <br />
-                        <Typography variant="body2" color="textSecondary">
-                            <div className="profile-initials" style={{ backgroundColor: color }}>
-                                {initials}
-                            </div>
-                        </Typography>
-                    </Typography>
+                <Link to="/" className="navbar-logo">
+                        <img src="/images/task.png" alt="Task Logo" className="navbar-image" />
+                        <div className="title-task-container">
+                        <h3 className='title-task'>Task</h3>
+                        <div className="vertical-line"></div>
+                        <div className="text-container">
+                        <div className="subtitle">Better</div>
+                        <div className="subtitle">Together</div>
+                        </div>
+                        </div>
+                    </Link>
+                
                 </Box>
-                <Divider />
+                <Divider sx={{ backgroundColor: '#ffffff' }} />
                 <List>
-                    {[
-                        { text: 'Summary', icon: faTableList, link: '/' },
-                        { text: 'Board', icon: faClipboard, link: '/board' },
-                        { text: 'Add Task', icon: faPenToSquare, link: '/task' },
-                        { text: 'Contacts', icon: faUser, link: '/contactList' },
-                        { text: 'Impressum', icon: faInfoCircle, link: '/impressum' },
-                    ].map((item, index) => (
-                        <ListItem button key={index} component={Link} to={item.link} onClick={item.onClick}>
-                            <ListItemIcon>
-                                <FontAwesomeIcon icon={item.icon} className="fa-icon" />
-                            </ListItemIcon>
-                            <ListItemText primary={item.text} />
-                        </ListItem>
-                    ))}
-                </List>
+            {[
+                { text: 'Summary', icon: faTableList, link: '/' },
+                { text: 'Board', icon: faClipboard, link: '/board' },
+                { text: 'Add Task', icon: faPenToSquare, link: '/task' },
+                { text: 'Contacts', icon: faUser, link: '/contactList' },
+                { text: 'Impressum', icon: faInfoCircle, link: '/impressum' },
+            ].map((item, index) => (
+                <ListItem 
+                    button 
+                    key={index} 
+                    component={Link} 
+                    to={item.link} 
+                    selected={location.pathname === item.link} // Set selected if path matches
+                    className={location.pathname === item.link ? 'selected' : ''} // Apply selected class
+                >
+                    <ListItemIcon className="sidebar-icon">
+                        <FontAwesomeIcon icon={item.icon} style={{ color: '#ffffff' }} />
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} />
+                </ListItem>
+            ))}
+        </List>
             </Drawer>
-    
+
             {/* Snackbar für Benachrichtigungen */}
             <Snackbar
                 open={snackbarOpen}
@@ -231,8 +332,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             </Snackbar>
         </div>
     );
-    
-    
 };
 
 export default Navbar;

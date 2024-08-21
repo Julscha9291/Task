@@ -8,8 +8,13 @@ from asgiref.sync import async_to_sync
 
 def get_unique_color():
     colors = [
-        '#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8', 
-        '#6c757d', '#6610f2', '#e83e8c', '#fd7e14', '#20c997'
+    '#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8', 
+    '#6c757d', '#6610f2', '#e83e8c', '#fd7e14', '#20c997',
+    '#343a40', '#f8f9fa', '#ffffff', '#6f42c1', '#e9ecef',
+    '#17a2b8', '#343a40', '#f5f5f5', '#212529', '#007bff',
+    '#28a745', '#dc3545', '#ffc107', '#e83e8c', '#fd7e14',
+    '#20c997', '#6c757d', '#6610f2', '#e9ecef', '#f1f1f1',
+    '#d3d3d3', '#a9a9a9', '#ff6347', '#ff1493', '#00fa9a'
     ]
     used_colors = CustomUser.objects.values_list('color', flat=True)
     available_colors = [color for color in colors if color not in used_colors]

@@ -164,8 +164,15 @@ function LoginForm({ onLogin }) {
                         <img src="/images/logo2.png" alt="Task Logo" />
                     </div>
                     <div className={`login-container ${showLoginForm ? 'show' : ''}`}>
-                        <div className="header">
-                            <h1 className="h1-login">Task</h1>
+                        <div className="header-login">
+                        <div className="title-task-container">
+                        <h3 className='title-task'>Task</h3>
+                        <div className="vertical-line"></div>
+                        <div className="text-container">
+                        <div className="subtitle">Better</div>
+                        <div className="subtitle">Together</div>
+                        </div>
+                        </div>
                         </div>
                         <div className="form-container">
                             <form onSubmit={handleSubmit}>

@@ -19,6 +19,7 @@ const Board = () => {
   const [showTask, setShowTask] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
+  const [category, setCategory] = useState(''); // Neuer state für die Kategorie
 
   useEffect(() => {
     fetchTasks();
@@ -43,10 +44,17 @@ const Board = () => {
     }
   };
 
-  const toggleTask = () => {
-    navigate('/task'); // Redirect to the board
+  const toggleTask = (category = '') => {
+    navigate('/task');
     setShowTask(!showTask);
+    if (category.trim() === '') {
+      console.warn('Kategorie ist leer');
+      return;
+    }
+    setCategory(category); // Setze die Kategorie
   };
+  
+  
 
   const createTask = async (taskData) => {
     try {
@@ -60,7 +68,7 @@ const Board = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const createdTask = await response.json();
+
       await fetchTasks(); // Aktualisiere die Aufgabenliste
       setShowTask(false);
     } catch (error) {
@@ -148,6 +156,7 @@ const Board = () => {
       console.error('Fehler beim Löschen der Aufgabe:', error);
     });
   };
+  
 
   const renderTasks = (taskList) => {
     return taskList.map((task, index) => (
@@ -267,29 +276,45 @@ const Board = () => {
   };
 
   return (
+    <div className="board-container">
+       <div className="header-board">
+        Board Tasks
+      </div>
+
+    <button className="new-task-button" onClick={() => toggleTask('')}>
+      <FontAwesomeIcon icon={faPlus} className="navbar-icon" />
+      <p className="add-text">Add new Task</p>
+    </button>
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="kanban-board">
         {Object.keys(tasks).map(category => (
           <Droppable key={category} droppableId={category}>
             {(provided) => (
               <div className="board-column" ref={provided.innerRef} {...provided.droppableProps}>
-                <div className="add-button" onClick={toggleTask}>
-                  <FontAwesomeIcon icon={faPlus} className="navbar-icon" />
-                  <p className="add-text">Add</p>
-                </div>
-                <h3 className="column-title">{category.replace(/([A-Z])/g, ' $1')}</h3>
-                <ul className="task-list">
+              <h3 className="column-title">{category.replace(/([A-Z])/g, ' $1')}</h3>
+              <ul className="task-list">
                   {renderTasks(tasks[category])}
                   {provided.placeholder}
-                </ul>
-              </div>
+              </ul>
+          </div>
             )}
           </Droppable>
         ))}
       </div>
       <TaskDetailsPopup task={selectedTask} onClose={closeTaskDetails} onEdit={() => setIsEdit(true)} onDelete={handleDeleteTask} />
-      <Task show={showTask || isEdit} onClose={closeTaskDetails} createTask={createTask} editTask={handleEditTask} taskToEdit={isEdit ? selectedTask : null} />
-    </DragDropContext>
+      <Task 
+        show={showTask || isEdit} 
+        onClose={closeTaskDetails} 
+        createTask={createTask} 
+        editTask={handleEditTask} 
+        taskToEdit={isEdit ? selectedTask : null} 
+        initialCategory={category}  // Stellen Sie sicher, dass 'category' definiert ist
+/>
+
+      
+      
+      </DragDropContext>
+      </div>
   );
 };
 

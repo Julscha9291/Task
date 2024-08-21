@@ -1,7 +1,11 @@
 .contact-wrapper {
   display: flex;
   justify-content: flex-start;
-  width: 100%;
+  margin-left: 280px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding:10px;
+  margin-right: 20px;
 }
 
 h1 {
@@ -23,8 +27,11 @@ h1 {
 }
 
 .contact-header {
+    font-size: 20px;
+    color: #3498db;
+    font-weight: bold;
   display: flex;
-  margin-left: 300px;
+  margin-left: 280px;
   margin-top: -80px;
   align-items: center;
 }
@@ -38,7 +45,6 @@ h1 {
 .contactlist-list {
   width: 300px;
   border-right: 1px solid #ddd;
-  margin-left: 300px;
   height: calc(100vh - 140px); /* Berechnet die Höhe basierend auf dem Abstand zum oberen Rand */
   overflow-y: auto; /* Macht die Kontaktliste scrollbar */
 }
@@ -51,9 +57,14 @@ h1 {
   transition: background-color 0.3s;
 }
 
+
 .contact-item:hover, .contact-item.selected {
   background-color: #f0f0f0;
+  width: 80% !important;
+  margin-right: 20;
 }
+
+
 
 .contact-initials {
   width: 40px;
@@ -62,7 +73,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   margin-right: 10px;
   font-weight: bold;
 }
@@ -79,6 +89,8 @@ h1 {
 
 .contact-name-big {
   font-size: 2em;
+  color: #3498db;
+  font-weight: bold;
 }
 
 .contact-initials-big {
@@ -102,6 +114,7 @@ h1 {
   flex-grow: 1;
   padding: 20px;
   position: relative;
+
 }
 
 .contact-details-header {
@@ -111,10 +124,16 @@ h1 {
 }
 
 .contact-add-task {
-  color: #555;
-  cursor: pointer;
-  margin:0px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color:rgba(248, 12, 99, 0.8);
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    color:#fff
 }
+
 
 .letter-header {
   font-size: 1.5em;
@@ -149,6 +168,7 @@ hr {
 .h3-box {
   margin-top: 10px;
   margin-bottom: 10px;
+  color: #555;
 }
 
 .p-box {
@@ -159,6 +179,7 @@ hr {
 @media (max-width: 768px) {
   .contact-wrapper {
     flex-direction: column;
+
   }
 
   .contact-list-container {
@@ -180,6 +201,7 @@ hr {
   .contact-details {
     width: calc(100% - 20px);
     margin-left: 10px;
+   
   }
 
   .back-button-container {
@@ -194,17 +216,19 @@ hr {
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1030px) {
   .contact-wrapper {
     flex-direction: column;
+    margin-left: 50px;
   }
 
   .contact-list-container {
     margin-top: 50px;
 }
 
+
   .contact-header {
-    margin-left: 10px;
+    margin-left: 50px;
     margin-top: 20px;
   }
 
@@ -213,11 +237,12 @@ hr {
     width: calc(100% - 20px);
     border-right: none;
     margin-bottom: 10px;
+    padding: 20px;
   }
 
   .contact-details {
     width: calc(100% - 20px);
-    margin-left: 10px;
+    margin-left: 30px;
   }
 
   .back-button-container {
@@ -229,7 +254,12 @@ hr {
     font-size: 30px; /* Größe des Icons */
     color: #003B46; /* Farbe des Icons */
     cursor: pointer; /* Zeigt an, dass es anklickbar ist */
+    margin-right: 50px;
   }
+
+  .contact-add-task {
+    margin-right: 40px;
+}
 }
 
 

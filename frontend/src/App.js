@@ -7,6 +7,7 @@ import Task from './components/Task';
 import LoginForm from './components/LoginForm'; 
 import ContactList from './components/ContactList'; 
 import Impressum from './components/Impressum'; 
+import Footer from './components/Footer'; 
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false); // Zustandsvariable für den Anmeldestatus
@@ -63,7 +64,7 @@ const App = () => {
               <Route exact path="/contactList" element={<ContactList />} />
               <Route exact path="/impressum" element={<Impressum />} />
             </Routes>
-         
+         <Footer></Footer>
           </>
         )}
       </div>

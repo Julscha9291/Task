@@ -11,27 +11,100 @@
     position: fixed;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+  .ListItem {
+    transition: background-color 1.3s ease;
+  }
+  
+
+  /* Stil für den ausgewählten ListItem */
+  .selected {
+    background-color: rgba(52, 152, 219, 0.43) !important; /* 43% Opazität der Farbe HEX #3498db */
+    /* Textfarbe für ausgewählte ListItem */
+    width: 85% !important; /* Breite auf 85% setzen */
+    border-top-right-radius: 12px !important; /* Abrundung der oberen rechten Ecke */
+    border-bottom-right-radius: 12px !important; /* Abrundung der unteren rechten Ecke */
+    margin-left: auto; /* Positioniert das ListItem am rechten Rand */
+    font-weight: bold !important; /* Schrift fett */
+}
+
+.css-bshv44-MuiButtonBase-root-MuiListItem-root.Mui-selected {
+  background-color: rgb(25 118 210 / 43%);
+}
+
+.title-task{
+  color:#fff;
+  display: contents;
+  font-size: 1em;
+}
+
+.title-task-container {
+  /* position: absolute; */
+  top: 50%;
+  left: 50%;
+  display: flex;
+}
+
+/* Stile für die vertikale Linie */
+.vertical-line {
+  width: 1px;
+  background-color: #3498db;
+  /* height: 50px; */
+  margin: 0 10px;
+}
+
+/* Stile für den Text */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* align-items: center; */
+  color: #3498db;
+  justify-content: center;
+  width: 100%;
+  /* margin-left: 10px; */
+  align-content: center;
+}
+
+.text-container .subtitle {
+  font-size: 0.75rem; /* Kleinere Schriftgröße */
+  font-weight: normal; /* Schriftgewicht */
+}
+
   .navbar-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     height: 60px;
     width: 100%;
     padding: 0 30px;
+    margin-top: 10px;
   }
   
   .navbar-logo {
-    flex: 1;
+    margin-top: -20%;
     color: #fff;
+    display: flex;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
     display: flex;
     align-items: center;
+    flex-direction: column;
+
   }
+
+  .css-10hburv-MuiTypography-root {
+    margin: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    display: block;
+    color: #f1f4f7;
+}
   
 
   .menu-icon {
@@ -55,10 +128,10 @@
   }
 
   .navbar-image  {
-    width: 50px; /* Beispiel: Breite des Bildes anpassen */
-    height: auto; /* Beispiel: Höhe automatisch anpassen */
-    margin-top: 0; /* Beispiel: Abstand zum Icon */
-    padding-right: 10px;
+       width: 100;
+    height: auto;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .profile-picture {
@@ -97,19 +170,24 @@
     justify-content: center;
 }
 
+.contact-initials-nav{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: -5px;
+  order: 2;
+}
 
-  .drawer {
-    display: block;
-    position: fixed;
-    top: 60px;
-    height: calc(100% - 60px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  }
   
   .logout-icon {
     margin-left: 10px;
     color:  #fff;
-        order: 2;
+      
   }
   
   .css-vrk4dv {
@@ -118,7 +196,10 @@
     margin-top: 70px;
     
   }
-  
+
+
+
+
   .drawer-paper {
     width: 250px;
     border-right: none;
@@ -126,18 +207,72 @@
   }
   
   .mobile-drawer .MuiPaper-root {
-    top: 60px;
+    background-color: #08223d;
+    top: 0px;
   }
   
  /* Hinzufügen eines roten Kreises um die Benachrichtigungszahl */
-.notification-icon {
-  margin-left: 10px;
-  padding: 10px;
-  color: #fff;
-  order: 1;
+ .notification-icon, .calendar-icon {
+  margin-right: 20px;
+  padding: 13px;
+  color: #0e2941;
+
   position: relative;
-  display: inline-block; /* Um das Benachrichtigungspopup relativ zu positionieren */
+  display: inline-block;
+  background-color: white; /* Weißer Hintergrund für den Kreis */
+  border-radius: 50%;      /* Runde Ecken für den Kreis */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Leichter Schatten */
 }
+
+.notification-icon:hover, .calendar-icon:hover, .user:hover {
+  background-color: #3498db; /* Hintergrundfarbe bei Mouseover auf Blau ändern */
+}
+
+.calendar-container {
+  position: relative; /* Damit die absolute Positionierung des Kalenders relativ zum Container ist */
+}
+
+/* Stil für das Kalender-Icon */
+.calendar-icon {
+  display: inline-block; /* Damit der Container um das Icon herum korrekt positioniert wird */
+}
+
+/* Kalender-Container, der direkt unter dem Icon angezeigt wird */
+.calendar-dropdown {
+  position: absolute; /* Damit der Kalender relativ zum Container positioniert ist */
+  top: 60; /* Direkt unter dem Icon */
+  right: 7;
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1000; /* Stellt sicher, dass der Kalender über anderen Elementen angezeigt wird */
+  max-width: 300px; /* Optional: Maximale Breite des Kalenders */
+}
+
+/* Stil für die Kalender-Komponente */
+.react-calendar {
+  background-color: white;
+  border: 1px solid #a0a096;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white; /* Weißer Hintergrund */
+  border-radius: 50px; /* Runde Ecken für ein ovales Aussehen */
+  padding: 3px 7px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Leichter Schatten */
+}
+.user-name{
+  margin-left: 20px;
+  color:#0e2941;
+}
+
 
 .dropdown-menu {
   position: absolute;
@@ -150,6 +285,48 @@
   width: 200px;
   z-index: 1000;
 }
+
+.dropdown-arrow-profile {
+  position: absolute;
+  top: -10px;
+  right: 50px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+}
+
+.dropdown-item span {
+  margin-left: 10px; /* Verschiebt den Text 10px nach rechts */
+}
+
+
+.profile-dropdown {
+  position: absolute;
+  top: 65;
+  /* right: -11; */
+  /* width: 300px; */
+  background-color: white;
+  border-radius: 8px;
+  padding: 10x;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
+    overflow: visible;
+    box-sizing: content-box;
+    margin-right: 0px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
 
 .notification-count {
   position: absolute;
@@ -168,6 +345,17 @@
   margin-right: 10px;
 }
 
+
+.css-qc420c-MuiTypography-root {
+  margin: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  margin-top: 8px;
+  color:#f1f4f7;
+}
   
   .dark-mode .navbar {
     background: #222428;
@@ -204,10 +392,136 @@
     align-items: center;
     justify-content: center;
 }
+
+/* Navbar.css */
+
+
+.notification-dropdown {
+  position: absolute;
+  top: 60;
+  right: -11;
+  width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: -10px;
+  right: 23px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+}
+
+.dropdown-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.notification-item {
+  /* padding: 10px; */
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+
+.no-notifications {
+  text-align: center;
+  padding: 20px;
+  color: #757575;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-top: 1px solid #e0e0e0; /* Obere Linie hinzufügen */
+  padding-top: 10px; /* Abstand oben, damit der Button nicht direkt an der Linie klebt */
+}
+
+.view-all {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f5f5f5;
+}
+
+.view-all button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.view-all button:hover {
+  background-color: #218838;
+}
+
+
+.text-dropdown{
+  color:#555;
+}
+
+.notification-box MuiBox-root css-1qm1lh {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.css-7ik032-MuiDrawer-docked {
+  background-color:#262c48;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  z-index: 1000;
+}
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+  background: linear-gradient(to bottom, #08223d, #08223d);
+}
+
+.media-logo{
+  display: none;
+}
   
-  @media screen and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px){
     .nav-text {
       display: none;
+    }
+
+    .media-logo{
+      display: flex;
+      background-color: #08223d;
+      padding: 10px;
+      margin-top:20px;
+      border-radius:50px;
+      margin-left: 10px;
+
+    }
+    .task-logo {
+      display: block;
+      top: 10px;
+      right: 10px;
+      width: 40px; /* Passe die Größe des Logos an */
+      height: auto;
     }
   
     .drawer {
@@ -229,40 +543,64 @@
     .navbar-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
+      margin-right: -20px;
     }
   
     .navbar-logo {
       flex: 1;
+      margin-top: 10px;
     }
   
     .menu-icon {
       display: block; /* Ensures menu icon is displayed */
       order: 3;
-      color:  #fff;
+      padding: 10px;
     }
   
     .notification-icon {
-      order: 1;
+      order: 0;
     }
+
   
-    .logout-icon {
-      order: 2;
-      margin-right: 20px;
-    }
   }
   
-  @media screen and (min-width: 1025px) {
+  @media (max-width: 768px) {
     .mobile-drawer {
-      display: none;
+      display: block;
     }
   
+    .media-logo{
+      display: flex;
+      background-color: #08223d;
+      padding: 10px;
+      margin-top:20px;
+      border-radius:50px;
+      margin-left: 10px;
+
+    }
+    .task-logo {
+      display: block;
+      top: 10px;
+      right: 10px;
+      width: 40px; /* Passe die Größe des Logos an */
+      height: auto;
+    }
+
     .drawer {
       display: block;
     }
   
     .menu-icon {
-      display: none; /* Ensures menu icon is hidden on larger screens */
+      display: block; /* Ensures menu icon is displayed */
+      order: 3;
+      padding: 10px;
+    }
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: -20px;
     }
   }
   

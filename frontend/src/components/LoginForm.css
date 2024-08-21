@@ -25,14 +25,25 @@
   opacity: 1;
 }
 
-.header {
-  background-color: #003B46;
+.header-login {
+  display: flex;
+  height: 60px;
+  background-color: #08223d;
   color: white;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   text-align: center;
   width: 100%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
+
+.title-task{
+  font-size: 30px;
+}
+
 
 img {
   width: 200px;
@@ -87,25 +98,26 @@ h2{
   border: none;
   background-color: #edeaea;
   border-radius: 10px;
-  font-family: 'Helvetica';
+  width: 100%;
 }
 
 .login-button  {
   width: calc(100% - 20px);
   padding: 5px 20px;
   margin: 15px 0;
-  background-color: #555;
+  background-color:#3498db;
   border: none;
   cursor: pointer;
   border-radius: 3px;
   color: #fff;
   font-size: 1rem;
+  width: 100%;
 }
 
 .sign-button{
   padding: 5px;
   margin: 15px 10px;
-  background-color: #555;
+  background-color: #3498db;
   border: none;
   cursor: pointer;
   border-radius: 3px;
@@ -116,7 +128,7 @@ h2{
 .guest-button {
   padding: 10px;
   margin: 10px 10px;
-  background-color: #003B46;
+  background-color: rgba(248, 12, 99, 0.8);
   border:none;
   cursor: pointer;
   border-radius: 3px;

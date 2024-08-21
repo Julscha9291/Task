@@ -19,6 +19,8 @@
   
   .popup-content h2 {
     margin-bottom: 11px;
+    margin-left:10px;
+    color: #3498db;
 }
 
 
@@ -83,10 +85,11 @@
     position: absolute;
     bottom: 20px;
     right: 30px;
+    gap: 10px !important;
   }
   
   .edit-icon {
-    margin-right: 20px;
+    margin-right: 10px !important;
     cursor: pointer;
     color: #555;
     font-size: 18px;

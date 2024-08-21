@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Summary.css';
 
 const Summary = () => {
-  const [date, setDate] = useState(new Date());
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
   const [firstName, setFirstName] = useState(''); // State für den Vornamen
   const [lastName, setLastName] = useState('');   // State für den Nachnamen
+  const [weather, setWeather] = useState(null);  // State für Wetterdaten
 
   useEffect(() => {
     fetch('http://localhost:8000/api/summary/')
@@ -21,8 +20,15 @@ const Summary = () => {
       })
       .then(data => setSummary(data))
       .catch(error => setError(error.toString()));
-      setFirstName(localStorage.getItem('first_name') || ''); // Laden des Vornamens aus dem Local Storage
-      setLastName(localStorage.getItem('last_name') || '');   // Optional: Laden des Nachnamens aus dem Local Storage
+      
+    setFirstName(localStorage.getItem('first_name') || ''); // Laden des Vornamens aus dem Local Storage
+    setLastName(localStorage.getItem('last_name') || '');   // Optional: Laden des Nachnamens aus dem Local Storage
+
+    // Wetterdaten für Dortmund abrufen
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Dortmund,de&units=metric&appid=2f40782865c896edfcc94895beeb029a')
+      .then(response => response.json())
+      .then(data => setWeather(data))
+      .catch(error => setError(error.toString()));
   }, []);
 
   const getGreeting = () => {
@@ -79,35 +85,73 @@ const Summary = () => {
     }
   };
 
-  const tileContent = ({ date, view }) => {
-    if (view === 'month' && summary && summary.tasks) {
-      const formattedDate = date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-      const tasksForDate = summary.tasks.filter(task => {
-        const taskDate = new Date(task.due_date).toISOString().split('T')[0];
-        return taskDate === formattedDate;
-      });
-  
-      return (
-        <div>
-          {tasksForDate.length > 0 && (
-            <div className="calendar-mark">
-              <span>{tasksForDate.length}</span>
-            </div>
-          )}
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="summary-wrapper">
       <div className="summary-greeting">
-        <h2>{getGreeting()}, {firstName} {lastName}!</h2>
-        <Calendar onChange={setDate} value={date} tileContent={tileContent} />
+      <h1 className='h1-summary'>
+      {getGreeting()}, <span className='spacer'></span>
+      <span className='name'>{firstName} {lastName}</span>!
+    </h1>
       </div>
+      <div className="first-wrapper">
       <div className="summary-container">
-        <h2>Summary</h2>
+        <h1 className='h2-summary'> First things first</h1>
+        <div className="summary-grid-first">
+          <Link to="/board" className="summary-item urgent">
+            <span className="summary-number">{summary.urgent_tasks}</span>
+            <span className="summary-label">Urgent</span>
+          </Link>
+          <Link to="/board" className="summary-item">
+            <span className="summary-deadline">{formatDate(summary.next_deadline)}</span>
+            <span className="summary-label">Upcoming Deadline</span>
+          </Link>
+        </div>
+      </div>
+
+
+      <div className="weather-container">
+  <h1 className='h2-summary'>Current Weather in Dortmund</h1>
+  {weather && weather.main ? (
+    <div className="weather-content">
+      <div className="weather-item">
+        <span className="weather-label">Temperature</span>
+        <span className="weather-value">{weather.main.temp}°C</span>
+        <img 
+            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} 
+            alt={weather.weather[0].description} 
+            className="weather-icon"  // Hier wird die Klasse zugewiesen
+          />
+      </div>
+     
+      <div className="weather-item">
+        <span className="weather-label" >Humidity</span>
+        <span className="weather-value">
+          {weather.main.humidity}%
+          <div className="icon">
+          <i className="fas fa-tint"></i> {/* Font Awesome Icon for Humidity */}
+          </div>
+        </span>
+      </div>
+      
+      <div className="weather-item">
+        <span className="weather-label">Wind Speed</span>
+        <span className="weather-value">
+          {weather.wind.speed} m/s
+          <div className="icon">
+          <i className="fas fa-wind"></i> {/* Font Awesome Icon for Wind Speed */}
+          </div> 
+        </span>
+      </div>
+    </div>
+  ) : (
+    <p>Loading weather data...</p>
+  )}
+</div>
+</div>
+
+      <div className="summary-container-total">
+        <h1 className='h2-summary'> Summary Total Tasks</h1>
         <div className="summary-grid">
           <Link to="/board" className="summary-item">
             <span className="summary-number">{summary.total_tasks}</span>
@@ -119,14 +163,6 @@ const Summary = () => {
               <span className="summary-label">{capitalizeFirstLetter(mapCategoryName(category.category).replace('_', ' '))}</span>
             </Link>
           ))}
-          <Link to="/board" className="summary-item urgent">
-            <span className="summary-number">{summary.urgent_tasks}</span>
-            <span className="summary-label">Urgent</span>
-          </Link>
-          <Link to="/board" className="summary-item">
-            <span className="summary-deadline">{formatDate(summary.next_deadline)}</span>
-            <span className="summary-label">Upcoming Deadline</span>
-          </Link>
         </div>
       </div>
     </div>

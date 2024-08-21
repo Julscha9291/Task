@@ -17,7 +17,7 @@
   }
   
   .header {
-    background-color: #003B46;
+    background-color: #08223d;
     color: white;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -58,7 +58,7 @@
     width: calc(100% - 20px); /* Breite berechnen, um Platz für das Padding zu lassen */
     padding: 5px 20px;
     margin: 15px 0;
-    background-color:  #555;
+    background-color:   #3498db;;
     border: none;
     cursor: pointer;
     border-radius: 3px;
