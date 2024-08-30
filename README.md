@@ -18,7 +18,7 @@ To run the application locally:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/your-repository.git
+   git clone https://github.com/Julscha9291/Task
    cd your-repository
 
 2. Set Up the Backend
