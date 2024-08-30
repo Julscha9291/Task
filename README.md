@@ -21,27 +21,30 @@ To run the application locally:
    git clone https://github.com/Julscha9291/Task
    cd Task
 
-2. Set Up the Backend
+2. **Set Up the Backend**
 
-- **Navigate to the Django backend directory.**
-- **Install dependencies:** 
-To install the required dependencies, run `pip install -r requirements.txt`.
-- **Apply migrations:** 
+- Navigate to the Django backend directory.
+
+- Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+- Apply migrations:
 ```bash
 python manage.py migrate
 ```
-- **Start the Django server:**
+- Start the Django server:
 ```bash
 python manage.py runserver
 ```
-3. Set Up the Frontend
+3. **Set Up the Frontend**
 
-- **Install dependencies:**
+- Install dependencies:
 ```bash
 npm install
 ```
 
-- **Start the React development server:**
+- Start the React development server:
 ```bash
 npm start
 ```
