@@ -19,7 +19,7 @@ To run the application locally:
 
    ```bash
    git clone https://github.com/Julscha9291/Task
-   cd your-repository
+   cd Task
 
 2. Set Up the Backend
 
