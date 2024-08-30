@@ -11,7 +11,7 @@ const ContactList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [taskSummary, setTaskSummary] = useState(null);
   const [isMobileView, setIsMobileView] = useState(false);
-  const navigate = useNavigate(); // Verwende den useNavigate-Hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/users/')
@@ -45,7 +45,7 @@ const ContactList = () => {
   }, []);
 
   const handleAddTaskClick = () => {
-    navigate('/task'); // Verwende navigate zur /task-Seite
+    navigate('/task'); 
   };
 
   const handleUserClick = (user) => {

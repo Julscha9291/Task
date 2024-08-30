@@ -18,15 +18,13 @@
   }
   
 
-  /* Stil für den ausgewählten ListItem */
   .selected {
-    background-color: rgba(52, 152, 219, 0.43) !important; /* 43% Opazität der Farbe HEX #3498db */
-    /* Textfarbe für ausgewählte ListItem */
-    width: 85% !important; /* Breite auf 85% setzen */
-    border-top-right-radius: 12px !important; /* Abrundung der oberen rechten Ecke */
-    border-bottom-right-radius: 12px !important; /* Abrundung der unteren rechten Ecke */
-    margin-left: auto; /* Positioniert das ListItem am rechten Rand */
-    font-weight: bold !important; /* Schrift fett */
+    background-color: rgba(52, 152, 219, 0.43) !important; 
+    width: 85% !important;
+    border-top-right-radius: 12px !important; 
+    border-bottom-right-radius: 12px !important; 
+    margin-left: auto; 
+    font-weight: bold !important; 
 }
 
 .css-bshv44-MuiButtonBase-root-MuiListItem-root.Mui-selected {
@@ -40,36 +38,30 @@
 }
 
 .title-task-container {
-  /* position: absolute; */
   top: 50%;
   left: 50%;
   display: flex;
 }
 
-/* Stile für die vertikale Linie */
 .vertical-line {
   width: 1px;
   background-color: #3498db;
-  /* height: 50px; */
   margin: 0 10px;
 }
 
-/* Stile für den Text */
 .text-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* align-items: center; */
   color: #3498db;
   justify-content: center;
   width: 100%;
-  /* margin-left: 10px; */
   align-content: center;
 }
 
 .text-container .subtitle {
-  font-size: 0.75rem; /* Kleinere Schriftgröße */
-  font-weight: normal; /* Schriftgewicht */
+  font-size: 0.75rem; 
+  font-weight: normal; 
 }
 
   .navbar-container {
@@ -114,17 +106,14 @@
   }
 
 
-  /* Dark Mode Styles */
+  /* Dark Mode Styles - kommt noch*/
   .dark-mode .list-item-icon .fa-icon,
   .dark-mode .navbar-icon {
     color: #fff;
   }
   
   .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
-
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-
   }
 
   .navbar-image  {
@@ -135,10 +124,9 @@
 }
 
 .profile-picture {
-    width: 60px; /* Beispiel: Breite des Bildes anpassen */
-    height: auto; /* Beispiel: Höhe automatisch anpassen */
-    margin-top: 0; /* Beispiel: Abstand zum Icon */
-
+    width: 60px; 
+    height: auto; 
+    margin-top: 0; 
 }
   
   .light-mode .MuiDivider-root {
@@ -147,7 +135,7 @@
   }
   
   .dark-mode .MuiDivider-root {
-    background-color: #bbb; /* Helleres Grau für den Divider im Dark Mode */
+    background-color: #bbb; 
     width: 90%;
     align-self: center;
   }
@@ -197,9 +185,6 @@
     
   }
 
-
-
-
   .drawer-paper {
     width: 250px;
     border-right: none;
@@ -216,37 +201,36 @@
   margin-right: 20px;
   padding: 13px;
   color: #0e2941;
-
   position: relative;
   display: inline-block;
-  background-color: white; /* Weißer Hintergrund für den Kreis */
-  border-radius: 50%;      /* Runde Ecken für den Kreis */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Leichter Schatten */
+  background-color: white;
+  border-radius: 50%;    
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
 }
 
 .notification-icon:hover, .calendar-icon:hover, .user:hover {
-  background-color: #3498db; /* Hintergrundfarbe bei Mouseover auf Blau ändern */
+  background-color: #3498db; 
 }
 
 .calendar-container {
-  position: relative; /* Damit die absolute Positionierung des Kalenders relativ zum Container ist */
+  position: relative; 
 }
 
 /* Stil für das Kalender-Icon */
 .calendar-icon {
-  display: inline-block; /* Damit der Container um das Icon herum korrekt positioniert wird */
+  display: inline-block;
 }
 
 /* Kalender-Container, der direkt unter dem Icon angezeigt wird */
 .calendar-dropdown {
-  position: absolute; /* Damit der Kalender relativ zum Container positioniert ist */
-  top: 60; /* Direkt unter dem Icon */
+  position: absolute; 
+  top: 60; 
   right: 7;
   background-color: white;
   border-radius: 8px;
   padding: 10px;
-  z-index: 1000; /* Stellt sicher, dass der Kalender über anderen Elementen angezeigt wird */
-  max-width: 300px; /* Optional: Maximale Breite des Kalenders */
+  z-index: 1000; 
+  max-width: 300px; 
 }
 
 /* Stil für die Kalender-Komponente */
@@ -263,11 +247,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: white; /* Weißer Hintergrund */
-  border-radius: 50px; /* Runde Ecken für ein ovales Aussehen */
+  background-color: white; 
+  border-radius: 50px; 
   padding: 3px 7px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Leichter Schatten */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
 }
+
+
 .user-name{
   margin-left: 20px;
   color:#0e2941;
@@ -298,15 +284,12 @@
 }
 
 .dropdown-item span {
-  margin-left: 10px; /* Verschiebt den Text 10px nach rechts */
+  margin-left: 10px; 
 }
-
 
 .profile-dropdown {
   position: absolute;
   top: 65;
-  /* right: -11; */
-  /* width: 300px; */
   background-color: white;
   border-radius: 8px;
   padding: 10x;
@@ -330,17 +313,17 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
 
 .notification-count {
   position: absolute;
-  top: -5px; /* Etwas höher als die Glocke */
-  right: -10px; /* Etwas rechts von der Glocke */
-  background-color: red; /* Hintergrundfarbe des Kreises */
-  color: white; /* Textfarbe der Zahl */
-  border-radius: 50%; /* Rundung des Kreises */
-  width: 20px; /* Breite des Kreises */
-  height: 20px; /* Höhe des Kreises */
+  top: -5px; 
+  right: -10px; 
+  background-color: red;
+  color: white; 
+  border-radius: 50%; 
+  width: 20px; 
+  height: 20px; 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem; /* Kleinere Schriftgröße */
+  font-size: 0.8rem; 
   font-weight: bold;
   margin-right: 10px;
 }
@@ -379,12 +362,12 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   }
   
   .dark-mode .drawer-paper {
-    background-color: #222428; /* Set the sidebar background to grey in dark mode */
+    background-color: #222428;
     color: #fff;
   }
   
   .dark-mode .mobile-drawer .MuiPaper-root {
-    background-color: #222428; /* Set the mobile sidebar background to grey in dark mode */
+    background-color: #222428; 
   }
 
   .css-r40f8v-MuiTypography-root {
@@ -392,8 +375,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
     align-items: center;
     justify-content: center;
 }
-
-/* Navbar.css */
 
 
 .notification-dropdown {
@@ -451,8 +432,8 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
-  border-top: 1px solid #e0e0e0; /* Obere Linie hinzufügen */
-  padding-top: 10px; /* Abstand oben, damit der Button nicht direkt an der Linie klebt */
+  border-top: 1px solid #e0e0e0; 
+  padding-top: 10px; 
 }
 
 .view-all {
@@ -520,7 +501,7 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
       display: block;
       top: 10px;
       right: 10px;
-      width: 40px; /* Passe die Größe des Logos an */
+      width: 40px; 
       height: auto;
     }
   
@@ -553,7 +534,7 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
     }
   
     .menu-icon {
-      display: block; /* Ensures menu icon is displayed */
+      display: block; 
       order: 3;
       padding: 10px;
     }
@@ -562,9 +543,10 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
       order: 0;
     }
 
-  
   }
   
+
+
   @media (max-width: 768px) {
     .mobile-drawer {
       display: block;
@@ -583,7 +565,7 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
       display: block;
       top: 10px;
       right: 10px;
-      width: 40px; /* Passe die Größe des Logos an */
+      width: 40px; 
       height: auto;
     }
 
@@ -592,7 +574,7 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
     }
   
     .menu-icon {
-      display: block; /* Ensures menu icon is displayed */
+      display: block; 
       order: 3;
       padding: 10px;
     }

@@ -10,8 +10,6 @@
     margin: 0 0 0 5px;
   }
 
-
-  
   .task-container {
     position: fixed;
     top: 0;
@@ -140,7 +138,7 @@
   
   .subtask-list li {
     display: flex;
-    margin-bottom: 8px; /* Abstand zwischen den Subtasks */
+    margin-bottom: 8px; 
     display: contents;
     white-space: nowrap;
     font-size: 14px; 
@@ -148,12 +146,12 @@
   
   .subtask-list input[type="checkbox"] {
     margin-right: 8px; 
-    display: flex;/* Abstand zwischen Checkbox und Label */
+    display: flex;
   }
   
   .subtask-label {
-    font-size: 14px; /* Beispiel für die Größe des Labels */
-    display: contents;/* Abstand zwischen Checkbox und Label */
+    font-size: 14px; 
+    display: contents;
   }
   
   .form-footer {
@@ -244,7 +242,7 @@
 .remove-contact {
   margin-left: 10px;
   padding: 5px;
-  background-color: #f8f9fa; /* Hintergrundfarbe anpassen */
+  background-color: #f8f9fa; 
   border: none;
   cursor: pointer;
 }
@@ -252,24 +250,22 @@
 .error-text {
   color: red;
   font-size: 12px;
-  align-self: center; /* Optional: zentriert die Fehlermeldung vertikal */
+  align-self: center; 
 }
 
-
-/* Media Query für größere Bildschirme (mindestens 768px Breite) */
 @media (min-width: 768px) and (max-width: 1024px){
   .task-form {
-    flex-direction: column; /* Felder nebeneinander anordnen */
+    flex-direction: column; 
     overflow-y: scroll;
   }
 
   .form-left, .form-right {
-    flex: 1; /* Jede Hälfte des Formulars nimmt die Hälfte des verfügbaren Platzes ein */
+    flex: 1; 
     padding: 10px;
   }
 
   .subtask-list {
-    margin-top: 10px; /* Abstand zwischen Subtasks und anderen Feldern */
+    margin-top: 10px;
   }
 
   .task-container.show {
@@ -298,17 +294,17 @@
 
 @media (max-width: 768px){
   .task-form {
-    flex-direction: column; /* Felder nebeneinander anordnen */
+    flex-direction: column; 
     overflow-y: scroll;
   }
 
   .form-left, .form-right {
-    flex: 1; /* Jede Hälfte des Formulars nimmt die Hälfte des verfügbaren Platzes ein */
+    flex: 1; 
     padding: 10px;
   }
 
   .subtask-list {
-    margin-top: 10px; /* Abstand zwischen Subtasks und anderen Feldern */
+    margin-top: 10px; 
   }
   .task-container.show {
     top: 55%;

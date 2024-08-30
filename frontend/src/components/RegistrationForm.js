@@ -25,11 +25,11 @@ function RegistrationForm({ onSuccess, onSwitchToLogin }) {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            onSuccess(); // Erfolgreiche Registrierung, Aufruf der onSuccess-Funktion
-        } catch (error) {
-            console.error('Registration error:', error);
-        }
-    };
+            onSuccess(); 
+             } catch (error) {
+                 console.error('Registration error:', error);
+            }
+         };
 
     return (
         <div className="registration-page">

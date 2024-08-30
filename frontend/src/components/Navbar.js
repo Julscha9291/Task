@@ -21,7 +21,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [notificationDropdownOpen, setNotificationDropdownOpen] = useState(false);
     const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const location = useLocation(); // Hook to get the current route
+    const location = useLocation(); 
 
     const notificationDropdownRef = useRef(null);
     const profileDropdownRef = useRef(null);
@@ -30,14 +30,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     const [date, setDate] = useState(new Date());
 
     const handleCalendarClick = () => {
-        setCalendarVisible(!calendarVisible); // Toggle visibility
+        setCalendarVisible(!calendarVisible); 
     };
 
-    
-
-    
-
-    // Set to track already processed task IDs to avoid duplicates
     const processedTaskIds = useRef(new Set());
 
     useEffect(() => {
@@ -53,9 +48,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             if (data.type === 'new_task_notification') {
                 const { task: taskId } = data.notification;
 
-                // Check if the task has already been processed
                 if (!processedTaskIds.current.has(taskId)) {
-                    processedTaskIds.current.add(taskId); // Mark task as processed
+                    processedTaskIds.current.add(taskId); 
 
                     // Fetch Task Details
                     try {
@@ -150,7 +144,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     };
 
     const handleLogout = () => {
-        console.log("Logout initiated"); // Debugging
         localStorage.removeItem('access_token');
         localStorage.removeItem('first_name');
         localStorage.removeItem('last_name');
@@ -177,9 +170,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 <Calendar onChange={setDate} value={date} />
                             </div>
                         )}
-                    </div>
-
-     
+                    </div> 
 
                     <div className="notification-icon" onClick={handleBellClick}>
                         <FontAwesomeIcon icon={faBell} className="navbar-icon" />
@@ -195,16 +186,15 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 {notifications.length > 0 ? (
                                     notifications.map((task, index) => {
                                         const taskDetail = notificationDetails.find(detail => detail.id === task.task);
-                         
 
                                         return (
                                             <div key={index} className="notification-item">
                                                 <div className="notification-content">
+
                                                     {/* Initialen des Kontakts links */}
                                                     <div className="contact-initials-board" style={{ backgroundColor: color }}>
                                                         {initials}
                                                     </div>
-
                                                     {/* Task-Details rechts */}
                                                     <div>
                                                         <Typography variant="subtitle2" className="notification-title" style={{ fontWeight: 'bold' }}>
@@ -279,7 +269,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 classes={{ paper: 'drawer-paper' }}
                 anchor="left"
                 style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}
-            >
+                >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
                 <Link to="/" className="navbar-logo">
                         <img src="/images/task.png" alt="Task Logo" className="navbar-image" />
@@ -296,13 +286,13 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 </Box>
                 <Divider sx={{ backgroundColor: '#ffffff' }} />
                 <List>
-            {[
+                {[
                 { text: 'Summary', icon: faTableList, link: '/' },
                 { text: 'Board', icon: faClipboard, link: '/board' },
                 { text: 'Add Task', icon: faPenToSquare, link: '/task' },
                 { text: 'Contacts', icon: faUser, link: '/contactList' },
                 { text: 'Impressum', icon: faInfoCircle, link: '/impressum' },
-            ].map((item, index) => (
+                    ].map((item, index) => (
                 <ListItem 
                     button 
                     key={index} 
@@ -320,7 +310,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         </List>
             </Drawer>
 
-            {/* Snackbar für Benachrichtigungen */}
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={6000}

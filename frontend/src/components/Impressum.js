@@ -15,7 +15,7 @@ const Impressum = () => {
      <h2 className='h2-impressum'> Kontakt</h2>
       <p>
         Telefon: 0176/43836260 <br />
-        E-Mail: info@YXXX
+        E-Mail: info@julian-schaepermeier.de
       </p>
       
     </div>

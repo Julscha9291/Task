@@ -8,7 +8,6 @@
     flex-direction: column;
 }
 
-
 .summary-greeting {
     padding: 10px;
     text-align: center;
@@ -19,7 +18,7 @@ margin-right: 20px;
 
 .spacer {
   display: inline-block;
-  width: 5px; /* Füge hier den gewünschten Abstand ein */
+  width: 5px; 
 }
 
 .h1-summary{
@@ -39,7 +38,7 @@ margin-right: 20px;
 }
 
 .name {
-  color: #3498db; /* Beispiel für eine Farbe, z.B. Blau */
+  color: #3498db; 
 }
 
 .weather-icon {
@@ -55,42 +54,40 @@ margin-right: 20px;
 /* Wrapper für die beiden Container */
 .first-wrapper {
   display: flex;
-  justify-content: space-between; /* Gleichmäßiger Abstand zwischen den Containern */
+  justify-content: space-between; 
   flex-direction: row;
-  width: 100%; /* Gesamtbreite des Containers */
+  width: 100%; 
 }
 
-/* Jeder Container nimmt 50% der Breite ein */
 .summary-container,
 .weather-container {
-  flex: 1; /* Nimmt den verfügbaren Platz gleichmäßig ein */
+  flex: 1; 
   padding: 20px;
   padding-top: 10px;
   text-align: center;
   border-radius: 5px;
   color: #333;
-  box-sizing: border-box; /* Stellt sicher, dass Padding nicht zur Breite hinzugefügt wird */
-  max-width: 50%; /* Maximale Breite auf 50% setzen */
-      background-color: #fff;
-      margin-right:20px;
-}
-
-.summary-container-total{
-  margin-top:20px;
-  flex: 1; /* Nimmt den verfügbaren Platz gleichmäßig ein */
-  padding: 20px;
-  padding-top: 10px;
-  text-align: center;
-  border-radius: 5px;
-  color: #333;
-  box-sizing: border-box; /* Stellt sicher, dass Padding nicht zur Breite hinzugefügt wird */
+  box-sizing: border-box; 
+  max-width: 50%; 
   background-color: #fff;
   margin-right:20px;
 }
 
-/* Optional: Wenn du einen Abstand zwischen den beiden Containern möchtest */
+.summary-container-total{
+  margin-top:20px;
+  flex: 1; 
+  padding: 20px;
+  padding-top: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: #333;
+  box-sizing: border-box; 
+  background-color: #fff;
+  margin-right:20px;
+}
+
 .first-wrapper > div:not(:last-child) {
-  margin-right: 20px; /* Abstand zwischen den Containern */
+  margin-right: 20px;
 }
 
 .weather-content {
@@ -119,11 +116,9 @@ margin-right: 20px;
   background: #eff5f9;
   padding: 20px;
   border-radius: 8px;
-  text-decoration: none; /* Entfernt die Unterstreichung */
-  color: inherit; /* Übernimmt die Textfarbe vom übergeordneten Element */
-
+  text-decoration: none; 
+  color: inherit;
 }
-
 
 .summary-grid {
     display: grid;
@@ -143,16 +138,15 @@ margin-right: 20px;
     background: #eff5f9;
     padding: 20px;
     border-radius: 8px;
-    text-decoration: none; /* Entfernt die Unterstreichung */
-    color: inherit; /* Übernimmt die Textfarbe vom übergeordneten Element */
+    text-decoration: none; 
+    color: inherit; 
 }
 
 .summary-item:hover, .weather-item:hover {
     transform: scale(1.05); /* Vergrößern beim Überfahren */
-    background-color: #3498db; /* Blaue Hintergrundfarbe */
+    background-color: #3498db; 
     color:#fff;
   }
-
 
 .summary-item.urgent {
     background: rgba(248, 12, 99, 0.8);
@@ -180,8 +174,6 @@ h6, h4{
     font-weight: bold;
     color:#555;
 }
-
-
 
   .calendar-mark {
     position: absolute;
@@ -220,7 +212,7 @@ h6, h4{
 
       .summary-grid {
         grid-template-columns: repeat(2, 1fr);
-          gap: 10px; /* Reduziert den Abstand zwischen den Grid-Items */
+          gap: 10px; 
       }
     
   }
@@ -242,23 +234,23 @@ h6, h4{
     }
 
     .first-wrapper {
-        flex-direction: column; /* Setzt die Container untereinander */
+        flex-direction: column; 
     }
 
     .summary-container,
     .weather-container {
-        max-width: 100%; /* Setzt die Breite auf 100% */
-        margin-bottom: 20px; /* Fügt einen Abstand zwischen den Containern hinzu */
+        max-width: 100%; 
+        margin-bottom: 20px; 
     }
 
     .summary-grid, 
     .summary-grid-first {
-        grid-template-columns: 1fr; /* Wandelt die Grid-Spalten in eine einzelne Spalte um */
-        gap: 10px; /* Reduziert den Abstand zwischen den Grid-Items */
+        grid-template-columns: 1fr; 
+        gap: 10px; 
     }
 
     .weather-content {
       grid-template-columns: repeat(1, 1fr);
-        gap: 10px; /* Reduziert den Abstand zwischen den Grid-Items */
+        gap: 10px; 
     }
 }

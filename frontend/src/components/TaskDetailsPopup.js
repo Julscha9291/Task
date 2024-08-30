@@ -8,7 +8,7 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
 
   const formatDate = (dateString) => {
     if (!dateString) {
-      return ''; // Oder einen Standardwert zurückgeben, je nach Anwendungsfall
+      return ''; 
     }
 
     const date = new Date(dateString);
@@ -53,7 +53,7 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      task.subtasks = updatedSubtasks; // Update local state for re-render
+      task.subtasks = updatedSubtasks; 
     } catch (error) {
       console.error('Error toggling subtask:', error);
     }

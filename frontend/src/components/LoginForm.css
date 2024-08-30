@@ -81,13 +81,20 @@ img {
   justify-content: center;
 }
 
-.form-container {
+.form-container-login {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: stretch;
 }
 
 h2{
   color: #555;
-  display: ruby-text;
+  display: flex;
+  align-self: center;
+  justify-content: center;
 }
 
 .login-input {
@@ -138,16 +145,18 @@ h2{
 }
 
 .guest-text {
-  font-size: 0.8rem;
-  color: #282727;
-  margin-top: -10px;
-  margin-left: 35;
+  display: flex;
+    font-size: 0.8rem;
+    color: #282727;
+    margin-top: -10px;
+    align-self: center;
 }
 
 .register-text {
   font-size: 0.8rem;
   color: #666;
   margin-top: 10px;
+  align-self: center;
 }
 
 .register-text a {
@@ -166,8 +175,8 @@ h2{
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
-  width: 200px; /* Startgröße des Logos */
-  height: 200px; /* Startgröße des Logos */
+  width: 200px; 
+  height: 200px; 
 }
 
 .logo-container.shrink {

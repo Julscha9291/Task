@@ -206,13 +206,13 @@ hr {
 
   .back-button-container {
     display: flex;
-    justify-content: flex-end; /* Verschiebt den Inhalt nach rechts */
+    justify-content: flex-end; 
   }
   
   .back-button {
-    font-size: 30px; /* Größe des Icons */
-    color: #003B46; /* Farbe des Icons */
-    cursor: pointer; /* Zeigt an, dass es anklickbar ist */
+    font-size: 30px; 
+    color: #003B46; 
+    cursor: pointer; 
   }
 }
 
@@ -247,13 +247,13 @@ hr {
 
   .back-button-container {
     display: flex;
-    justify-content: flex-end; /* Verschiebt den Inhalt nach rechts */
+    justify-content: flex-end; 
   }
   
   .back-button {
-    font-size: 30px; /* Größe des Icons */
-    color: #003B46; /* Farbe des Icons */
-    cursor: pointer; /* Zeigt an, dass es anklickbar ist */
+    font-size: 30px;
+    color: #003B46; 
+    cursor: pointer; 
     margin-right: 50px;
   }
 

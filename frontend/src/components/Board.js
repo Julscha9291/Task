@@ -19,7 +19,7 @@ const Board = () => {
   const [showTask, setShowTask] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const [category, setCategory] = useState(''); // Neuer state für die Kategorie
+  const [category, setCategory] = useState(''); 
 
   useEffect(() => {
     fetchTasks();
@@ -51,11 +51,10 @@ const Board = () => {
       console.warn('Kategorie ist leer');
       return;
     }
-    setCategory(category); // Setze die Kategorie
+    setCategory(category); 
   };
   
   
-
   const createTask = async (taskData) => {
     try {
       const response = await fetch('http://localhost:8000/api/tasks/', {
@@ -76,7 +75,6 @@ const Board = () => {
     }
   };
   
-
   const openTaskDetails = (task) => {
     setSelectedTask(task);
     setIsEdit(false);
@@ -308,11 +306,9 @@ const Board = () => {
         createTask={createTask} 
         editTask={handleEditTask} 
         taskToEdit={isEdit ? selectedTask : null} 
-        initialCategory={category}  // Stellen Sie sicher, dass 'category' definiert ist
+        initialCategory={category}  
 />
 
-      
-      
       </DragDropContext>
       </div>
   );

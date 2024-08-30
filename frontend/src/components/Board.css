@@ -148,17 +148,17 @@
 
 @media screen and (max-width: 1024px) {
     .kanban-board {
-        flex-direction: column; /* Spalten untereinander anordnen */
-        align-items: center; /* In der Mitte des Bildschirms zentrieren */
-        padding: 20px 10px; /* Padding oben/unten 20px, links/rechts 10px */
+        flex-direction: column; 
+        align-items: center; 
+        padding: 20px 10px; 
         margin-left: 20px;
     }
 
     .board-column {
-        margin: 0; /* Kein seitlicher Abstand */
-        margin-bottom: 20px; /* Abstand zwischen den Spalten */
-        width: 90%; /* Volle Breite einnehmen */
-        max-width: none; /* Maximale Breite aufheben */
+        margin: 0; 
+        margin-bottom: 20px; 
+        width: 90%; 
+        max-width: none; 
     }
 
     .header-board {

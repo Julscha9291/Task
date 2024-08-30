@@ -40,8 +40,6 @@ function LoginForm({ onLogin }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Email:', email); // Debugging
-        console.log('Password:', password); // Debugging
 
         fetch('http://localhost:8000/api/login/', {
             method: 'POST',
@@ -78,7 +76,6 @@ function LoginForm({ onLogin }) {
                         return response.json();
                     })
                     .then(profileData => {
-                        console.log('Profile Data:', profileData); // Debugging
                         if (profileData.user) {
                             localStorage.setItem('first_name', profileData.user.first_name);
                             localStorage.setItem('last_name', profileData.user.last_name);
@@ -174,7 +171,7 @@ function LoginForm({ onLogin }) {
                         </div>
                         </div>
                         </div>
-                        <div className="form-container">
+                        <div className="form-container-login">
                             <form onSubmit={handleSubmit}>
                                 <h2>Login</h2>
                                 <input className="login-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail" required /><br />

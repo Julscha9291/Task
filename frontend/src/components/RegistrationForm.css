@@ -7,7 +7,7 @@
   }
   
   .registration-container {
-    width: 400px; /* oder die gewünschte Breite */
+    width: 400px; 
     background-color: #f2f2f2;
     border-radius: 15px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -22,20 +22,17 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     text-align: center;
-    width: 100%; /* Die Breite auf 100% setzen, um den Container auszufüllen */
+    width: 100%; 
   }
   
   .form-container-reg {
     padding: 30px;
     width: 80%;
     margin-left: 20px;
-  
   }
 
   .form-container {
     padding: 20px;
-
-  
   }
   
   .registration-heading {
@@ -44,7 +41,7 @@
   }
   
   .registration-input {
-    width: calc(100% - 20px); /* Breite berechnen, um Platz für das Padding zu lassen */
+    width: calc(100% - 20px); 
     padding: 5px;
     margin: 5px 0;
     font-size: 1rem;
@@ -55,7 +52,7 @@
   }
   
   .registration-button {
-    width: calc(100% - 20px); /* Breite berechnen, um Platz für das Padding zu lassen */
+    width: calc(100% - 20px); 
     padding: 5px 20px;
     margin: 15px 0;
     background-color:   #3498db;;
@@ -67,19 +64,19 @@
   }
   
   .register-text {
-    font-size: 0.8rem; /* Passende Schriftgröße */
-    color: #666; /* Graue Farbe */
-    margin-top: 10px; /* Abstand zum Formular */
+    font-size: 0.8rem; 
+    color: #666; 
+    margin-top: 10px; 
   }
   
   .register-text a {
-    color: #007bff; /* Farbe für den Link */
-    text-decoration: none; /* Keine Unterstreichung für den Link */
+    color: #007bff; 
+    text-decoration: none; 
   }
   
   .register-text a:hover {
-    text-decoration: underline; /* Unterstreichung hinzufügen, wenn der Link angehört wird */
-    cursor: pointer; /* Cursor-Änderung beim Überfahren des Links */
+    text-decoration: underline;
+    cursor: pointer; 
   }
   
   .popup {
@@ -87,8 +84,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #555; /* Grauer Hintergrund mit Transparenz */
-    width: 300px; /* Breite des Popups */
+    background-color: #555;
+    width: 300px; 
     padding: 20px;
     border-radius: 10px;
     color:#fff;

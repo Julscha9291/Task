@@ -74,7 +74,6 @@ class SummaryView(APIView):
         }
         return Response(summary_data, status=status.HTTP_200_OK)
     
-    
 
 logger = logging.getLogger(__name__)
 
@@ -83,8 +82,7 @@ class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     
     
-class UserProfileView(APIView):
-    
+class UserProfileView(APIView):    
     
     def get(self, request):
         user = request.user

@@ -138,7 +138,7 @@
 
 .subtask-list li {
   display: flex;
-  margin-bottom: 8px; /* Abstand zwischen den Subtasks */
+  margin-bottom: 8px; 
   white-space: nowrap;
   font-size: 14px; 
 }
@@ -150,11 +150,9 @@ label {
   font-weight: normal;
 }
 
-
-
 .subtask-label {
-  font-size: 14px; /* Beispiel für die Größe des Labels */
-  display: contents;/* Abstand zwischen Checkbox und Label */
+  font-size: 14px; 
+  display: contents;
 }
 
 

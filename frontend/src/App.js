@@ -10,7 +10,7 @@ import Impressum from './components/Impressum';
 import Footer from './components/Footer'; 
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false); // Zustandsvariable für den Anmeldestatus
+  const [loggedIn, setLoggedIn] = useState(false); 
   const [taskToEdit, setTaskToEdit] = useState(null);
   
   useEffect(() => {
@@ -22,19 +22,17 @@ const App = () => {
 
   const handleCloseTask = () => {
     setTaskToEdit(null);
-    // Navigate programmatically to '/board'
     window.history.pushState({}, '', '/board');
   };
 
   const handleEditTask = (task) => {
     setTaskToEdit(task);
-    // Navigate programmatically to '/task'
     window.history.pushState({}, '', '/task');
   };
 
   const handleLogin = (token) => {
-    localStorage.setItem('access_token', token); // Speichert das Token im localStorage
-    setLoggedIn(true); // Funktion, um den Anmeldestatus zu aktualisieren
+    localStorage.setItem('access_token', token); 
+    setLoggedIn(true); 
   };
 
   const handleLogout = () => {
@@ -46,7 +44,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        {!loggedIn ? ( // Zeige das LoginForm, wenn nicht angemeldet
+        {!loggedIn ? ( 
           <LoginForm onLogin={handleLogin} />
         ) : (
           <>

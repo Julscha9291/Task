@@ -13,9 +13,9 @@ urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='user-register'),
     path('login/', LoginView.as_view(), name='login'),
     path('profile/', UserProfileView.as_view(), name='user-profile'),
-       path('users/', UserListView.as_view(), name='user-list'), 
-   path('user-contact/', UserContactView.as_view(), name='user-contact'),
-   path('users/<int:user_id>/user-summary/', UserTaskSummaryView.as_view(), name='user-task-summary'),
+    path('users/', UserListView.as_view(), name='user-list'), 
+    path('user-contact/', UserContactView.as_view(), name='user-contact'),
+    path('users/<int:user_id>/user-summary/', UserTaskSummaryView.as_view(), name='user-task-summary'),
 
 ]
 

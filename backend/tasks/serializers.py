@@ -37,7 +37,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'first_name', 'last_name', 'color')
 
 
-
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -55,7 +54,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         )
         return user
     
-
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -144,7 +142,6 @@ class TaskSerializer(serializers.ModelSerializer):
             instance.contacts.add(contact)
 
         return instance
-
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
