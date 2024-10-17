@@ -4,12 +4,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect  # Importiere die Umleitungsfunktion
 
-# Umleitung zur API oder einer spezifischen Seite
-def redirect_to_api(request):
-    return redirect('api/')  # Hier kannst du die gewünschte Ziel-URL angeben
+# Umleitung zur Login-Seite
+def redirect_to_login(request):
+    return redirect('login')  # Umleitung zur Login-URL
 
 urlpatterns = [
-    path('', redirect_to_api, name='redirect_to_api'),  # Definiere die Root-URL
+    path('', redirect_to_login, name='redirect_to_login'),  # Definiere die Root-URL
     path('admin/', admin.site.urls),
     path('api/', include('tasks.urls')),  # Registriere deine tasks-URLs
 ]
