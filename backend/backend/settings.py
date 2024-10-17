@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'tasks', 
+    'task.julianschaepermeier.com'
 ]
 
 MIDDLEWARE = [
