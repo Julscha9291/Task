@@ -132,7 +132,7 @@ SESSION_COOKIE_SECURE = True  # Setze dies auf True, wenn HTTPS verwendet wird
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend/build')],
+        'DIRS': [os.path.join(BASE_DIR, '../frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -205,7 +205,7 @@ STATIC_URL = '/static/'
 
 # List of additional locations of static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'frontend/build',
+    BASE_DIR / '../frontend/build/static',
 ]
 
 # Absolute filesystem path to the directory that will hold static files.
