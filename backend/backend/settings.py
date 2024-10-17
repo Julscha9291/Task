@@ -206,7 +206,6 @@ STATIC_URL = '/static/'
 # List of additional locations of static files
 STATICFILES_DIRS = [
     BASE_DIR / '../frontend/build/static',
-    BASE_DIR / '../frontend/build/images',
 ]
 
 # Absolute filesystem path to the directory that will hold static files.
