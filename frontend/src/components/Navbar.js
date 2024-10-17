@@ -157,7 +157,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <div className="main-container">
             <nav className={`navbar ${darkMode ? 'dark-mode' : ''}`} style={{ backgroundColor: '#f1f7fa' }}>
                 <Link to="/" className="media-logo">
-                        <img src="/images/task.png" alt="Task Logo" className="task-logo" />
+                        <img src="{% static 'images/task.png' %}" alt="Task Logo" className="task-logo" />
                     </Link>
             <div className="navbar-container">
                 <div className="calendar-container">
@@ -272,7 +272,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
                 <Link to="/" className="navbar-logo">
-                        <img src="/images/task.png" alt="Task Logo" className="navbar-image" />
+                        <img src="{% static 'images/task.png' %}" alt="Task Logo" className="navbar-image" />
                         <div className="title-task-container">
                         <h3 className='title-task'>Task</h3>
                         <div className="vertical-line"></div>
