@@ -160,7 +160,7 @@ function LoginForm({ onLogin }) {
                 <>
                     <div className={`logo-container ${logoShrink ? 'shrink' : ''}`}>
                         
-                        <img src="https://your-domain.com/static/logo2.png" alt="Task Logo" />
+                        <img src="https://task.julianschaepermeier.com/static/logo2.png" alt="Task Logo" />
                     </div>
                     <div className={`login-container ${showLoginForm ? 'show' : ''}`}>
                         <div className="header-login">
