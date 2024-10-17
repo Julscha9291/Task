@@ -53,7 +53,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
                     // Fetch Task Details
                     try {
-                        const response = await fetch(`http://localhost:8000/api/tasks/${taskId}`, {
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${taskId}`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <div className="main-container">
             <nav className={`navbar ${darkMode ? 'dark-mode' : ''}`} style={{ backgroundColor: '#f1f7fa' }}>
                 <Link to="/" className="media-logo">
-                        <img src="{% static 'images/task.png' %}" alt="Task Logo" className="task-logo" />
+                        <img src="https://task.julianschaepermeier.com/static/task.png'" alt="Task Logo" className="task-logo" />
                     </Link>
             <div className="navbar-container">
                 <div className="calendar-container">
@@ -272,7 +272,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
                 <Link to="/" className="navbar-logo">
-                        <img src="{% static 'images/task.png' %}" alt="Task Logo" className="navbar-image" />
+                        <img src="images/task.png" alt="Task Logo" className="navbar-image" />
                         <div className="title-task-container">
                         <h3 className='title-task'>Task</h3>
                         <div className="vertical-line"></div>

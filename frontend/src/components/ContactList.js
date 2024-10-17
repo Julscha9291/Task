@@ -14,7 +14,7 @@ const ContactList = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/users/')
+    axios.get(`${process.env.REACT_APP_API_URL}api/users/`)
       .then(response => {
         const sortedUsers = response.data.sort((a, b) => {
           const nameA = a.last_name.toUpperCase();
@@ -49,7 +49,7 @@ const ContactList = () => {
   };
 
   const handleUserClick = (user) => {
-    fetch(`http://localhost:8000/api/users/${user.id}/user-summary/`, {
+    fetch(`${process.env.REACT_APP_API_URL}api/users/${user.id}/user-summary/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

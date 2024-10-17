@@ -36,7 +36,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
   const [selectedContacts, setSelectedContacts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/users/')
+    fetch(`${process.env.REACT_APP_API_URL}api/users/`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -171,7 +171,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
     console.log('Task data to send:', taskData);
 
     if (taskToEdit) {
-      fetch(`http://localhost:8000/api/tasks/${taskToEdit.id}/`, {
+      fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${taskToEdit.id}/`, {
           method: 'PUT',
           headers: {
               'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
           console.error('Fetch error:', error);
       });
     } else {
-      fetch('http://localhost:8000/api/tasks/', {
+      fetch(`${process.env.REACT_APP_API_URL}api/tasks/`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

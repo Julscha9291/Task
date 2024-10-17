@@ -27,7 +27,7 @@ const Board = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/tasks/');
+      const response = await fetch(`${process.env.REACT_APP_API_URL}api/tasks/`);
       if (!response.ok) {
         throw new Error(`HTTP-Fehler! Status: ${response.status}`);
       }
@@ -57,7 +57,7 @@ const Board = () => {
   
   const createTask = async (taskData) => {
     try {
-      const response = await fetch('http://localhost:8000/api/tasks/', {
+      const response = await fetch('https://task.julianschaepermeier.com/api/tasks/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const Board = () => {
       }))
     };
   
-    fetch(`http://localhost:8000/api/tasks/${editedTask.id}/`, {
+    fetch(`${process.env.REACT_APP_API_URL}api/tasks/${editedTask.id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ const Board = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    fetch(`http://localhost:8000/api/tasks/${taskId}/`, {
+    fetch(`${process.env.REACT_APP_API_URL}/register/api/tasks/${taskId}/`, {
       method: 'DELETE',
     })
     .then(response => {
@@ -249,7 +249,7 @@ const Board = () => {
 
     console.log('Updating task category:', draggableId, 'with data:', updatedTaskData);
 
-    fetch(`http://localhost:8000/api/tasks/${draggableId}/`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${draggableId}/`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

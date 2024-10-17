@@ -41,7 +41,7 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
     updatedSubtasks[subtaskIndex].completed = !updatedSubtasks[subtaskIndex].completed;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/tasks/${task.id}/subtasks/${subtaskIndex}/`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${task.id}/subtasks/${subtaskIndex}/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -41,7 +41,7 @@ function LoginForm({ onLogin }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:8000/api/login/', {
+        fetch(`${process.env.REACT_APP_API_URL}api/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function LoginForm({ onLogin }) {
                     localStorage.setItem('color', data.user.color);
                     onLogin();
             
-                    fetch('http://localhost:8000/api/profile/', {
+                    fetch(`${process.env.REACT_APP_API_URL}api/profile/`, {
                         headers: {
                             'Authorization': `Bearer ${data.access}`,
                         },
@@ -118,7 +118,7 @@ function LoginForm({ onLogin }) {
         const guestEmail = 'guest@example.com';
         const guestPassword = 'guestpassword';
         
-        fetch('http://localhost:8000/api/login/', {
+        fetch(`${process.env.REACT_APP_API_URL}api/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const Summary = () => {
   const [weather, setWeather] = useState(null);  // State für Wetterdaten
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/summary/')
+    fetch(`${process.env.REACT_APP_API_URL}api/summary/`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
