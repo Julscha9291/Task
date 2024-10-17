@@ -204,18 +204,11 @@ USE_TZ = True
 # Statische Dateien (CSS, JavaScript, Bilder)
 STATIC_URL = '/static/'
 
-# Liste zusätzlicher Standorte für statische Dateien
-STATICFILES_DIRS = [
-    BASE_DIR / 'frontend' / 'build' / 'static',  # Für statische Dateien
-]
 
 # Mediendateien (falls benötigt)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Für hochgeladene Dateien
 
-# Für den Zugriff auf Bilder im frontend/build/images
-IMAGES_URL = '/images/'
-IMAGES_ROOT = BASE_DIR / 'frontend' / 'build' / 'images'
 
 # Absolute filesystem path to the directory that will hold static files.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
