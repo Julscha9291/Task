@@ -201,13 +201,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Statische Dateien (CSS, JavaScript, Bilder)
 STATIC_URL = '/static/'
 
-# List of additional locations of static files
+# Liste zusätzlicher Standorte für statische Dateien
 STATICFILES_DIRS = [
-    BASE_DIR / '../frontend/build/static',
-    BASE_DIR / '../frontend/build/images',
+    BASE_DIR / 'frontend' / 'build' / 'static',  # Für statische Dateien
 ]
+
+# Mediendateien (falls benötigt)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Für hochgeladene Dateien
+
+# Für den Zugriff auf Bilder im frontend/build/images
+IMAGES_URL = '/images/'
+IMAGES_ROOT = BASE_DIR / 'frontend' / 'build' / 'images'
 
 # Absolute filesystem path to the directory that will hold static files.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
