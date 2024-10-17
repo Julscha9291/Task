@@ -152,13 +152,15 @@ function LoginForm({ onLogin }) {
     
 
     return (
+        
         <div className="login-page">
             {showRegistration ? (
                 <RegistrationForm onSuccess={handleRegistrationSuccess} onSwitchToLogin={handleSwitchToLogin} />
             ) : (
                 <>
                     <div className={`logo-container ${logoShrink ? 'shrink' : ''}`}>
-                        <img src="{% static 'logo2.png' %}" alt="Task Logo" />
+                        
+                        <img src="https://your-domain.com/static/logo2.png" alt="Task Logo" />
                     </div>
                     <div className={`login-container ${showLoginForm ? 'show' : ''}`}>
                         <div className="header-login">
