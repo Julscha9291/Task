@@ -134,7 +134,7 @@ const Board = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    fetch(`${process.env.REACT_APP_API_URL}/register/api/tasks/${taskId}/`, {
+    fetch(`${process.env.REACT_APP_API_URL}api/tasks/${taskId}/`, {
       method: 'DELETE',
     })
     .then(response => {
