@@ -24,3 +24,9 @@ django-debug-toolbar>=2.0.0
 
 # For testing
 coverage>=7.0.0
+
+django-cors-headers
+
+daphne
+
+djangorestframework-simplejwt
