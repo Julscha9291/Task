@@ -272,7 +272,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 >
                 <Box sx={{ padding: 2, textAlign: 'center' }}>
                 <Link to="/" className="navbar-logo">
-                        <img src="images/task.png" alt="Task Logo" className="navbar-image" />
+                        <img src="https://task.julianschaepermeier.com/static/task.png" alt="Task Logo" className="navbar-image" />
                         <div className="title-task-container">
                         <h3 className='title-task'>Task</h3>
                         <div className="vertical-line"></div>
