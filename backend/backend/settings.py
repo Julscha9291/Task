@@ -28,7 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 
                  'localhost', 
                  '127.0.0.1:62484',
-                 'task.julianschaepermeier.com']
+                 'task.julianschaepermeier.com',
+                 'julianschaepermeier.com',
+                 '85.22.34.217',]
 
 
 # Application definition
