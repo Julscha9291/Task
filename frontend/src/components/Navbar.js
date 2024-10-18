@@ -153,7 +153,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         localStorage.removeItem('first_name');
         localStorage.removeItem('last_name');
         localStorage.removeItem('color');
-        navigate('/login');
+        navigate('/');
         window.location.reload();
 
     };
