@@ -33,7 +33,7 @@
 
 .board-column {
     flex: 1;
-    background-color: #f7f6f7;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 16px;
@@ -68,6 +68,7 @@
   .contact-info {
     display: flex;
     align-items: center;
+    margin-bottom: 5px;
   }
 
 .column-title {

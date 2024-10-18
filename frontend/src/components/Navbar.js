@@ -36,40 +36,44 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     const processedTaskIds = useRef(new Set());
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:8000/ws/notifications/');
-
+        const ws = new WebSocket('wss://task.julianschaepermeier.com/ws/notifications/');
+    
         ws.onopen = () => {
             console.log("WebSocket is open now.");
         };
-
+    
         ws.onmessage = async function(event) {
+            console.log('Received WebSocket message:', event.data);  // Log the incoming message
+    
             const data = JSON.parse(event.data);
-
+    
             if (data.type === 'new_task_notification') {
                 const { task: taskId } = data.notification;
-
+    
                 if (!processedTaskIds.current.has(taskId)) {
-                    processedTaskIds.current.add(taskId); 
-
+                    processedTaskIds.current.add(taskId);
+    
                     // Fetch Task Details
                     try {
-                        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${taskId}`, {
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}api/tasks/${taskId}`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                         });
                         if (!response.ok) {
+                            const errorDetails = await response.json();  // Log additional error details
+                            console.error('Error fetching task details:', errorDetails);
                             throw new Error('Network response was not ok');
                         }
                         const taskDetails = await response.json();
-
+                        console.log('Task Details fetched successfully:', taskDetails);  // Log fetched details
                         setNotificationDetails(prevDetails => [...prevDetails, taskDetails]);
-
+    
                         // Update notifications and increment counter
                         setNotifications(prev => [data.notification, ...prev.filter(n => n.task !== taskId)]);
                         setNewNotificationCount(prevCount => prevCount + 1);
-
+    
                         setSnackbarOpen(true);
                     } catch (error) {
                         console.error('Error fetching task details:', error);
@@ -77,19 +81,20 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 }
             }
         };
-
+    
         ws.onclose = function(e) {
             console.log('WebSocket closed unexpectedly');
         };
-
+    
         ws.onerror = function(err) {
-            console.error('WebSocket encountered an error: ', err);
+            console.error('WebSocket encountered an error:', err.message || err);  // Improved error log
         };
-
+    
         return () => {
             ws.close();
         };
     }, []);
+    
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -157,7 +162,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         <div className="main-container">
             <nav className={`navbar ${darkMode ? 'dark-mode' : ''}`} style={{ backgroundColor: '#f1f7fa' }}>
                 <Link to="/" className="media-logo">
-                        <img src="https://task.julianschaepermeier.com/static/task.png'" alt="Task Logo" className="task-logo" />
+                        <img src="https://task.julianschaepermeier.com/static/task.png" alt="Task Logo" className="task-logo" />
                     </Link>
             <div className="navbar-container">
                 <div className="calendar-container">
@@ -179,7 +184,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         )}
                         {notificationDropdownOpen && (
                             <div ref={notificationDropdownRef} className="notification-dropdown">
-                                <div className="dropdown-arrow"></div>
+                                <div className="dropdown-arrow-bell"></div>
                                 <Typography variant="h6" className="dropdown-header">
                                     Notification
                                 </Typography>

@@ -212,9 +212,11 @@ h6, h4{
 
       .summary-grid {
         grid-template-columns: repeat(2, 1fr);
-          gap: 10px; 
+          gap: 10px !important; 
       }
-    
+      .weather-content {
+      gap: 10px !important; 
+  }
   }
 
   @media (max-width: 768px) {
@@ -224,13 +226,14 @@ h6, h4{
         justify-content: center;
         flex-direction: column;
         margin-left: 0px; 
+        margin-top:10px;
     }
     
     .summary-wrapper {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        margin-left: 50px;
+        margin-left: 20px;
     }
 
     .first-wrapper {
@@ -251,6 +254,6 @@ h6, h4{
 
     .weather-content {
       grid-template-columns: repeat(1, 1fr);
-        gap: 10px; 
+        gap: 10px !important; 
     }
 }

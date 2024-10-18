@@ -51,7 +51,8 @@
     width: 15%;
     align-self: flex-end;
     margin-right: 10px;
-   
+    display: flex;
+    justify-content: center;
   }
   
   .priority-button-popup.urgent {

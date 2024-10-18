@@ -23,6 +23,8 @@
     border-top-right-radius: 15px;
     text-align: center;
     width: 100%; 
+    display: flex;
+    justify-content: center;
   }
   
   .form-container-reg {
@@ -91,9 +93,7 @@
     color:#fff;
   }
   
-  .popup-content {
-    text-align: center;
-  }
+
 
   .wrapper{
     display: flex;

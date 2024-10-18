@@ -76,14 +76,14 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
             {task.priority || 'Low'}
           </button>
         </div>
-        <p><strong>Description:</strong> {task.description}</p>
+        <p><strong>Description:&nbsp; </strong> {task.description}</p>
         <p>
-          <strong>Category:</strong> {mapCategoryName(task.category)}
+          <strong>Category:&nbsp;</strong> {mapCategoryName(task.category)}
         </p>
-        {task.due_date && <p><strong>Due Date:</strong> {formatDate(task.due_date)}</p>}
+        {task.due_date && <p><strong>Due Date:&nbsp;</strong> {formatDate(task.due_date)}</p>}
         {task.subtasks.length > 0 && (
           <div className="subtask-input">
-            <p><strong>Subtasks:</strong></p>
+            <p><strong>Subtasks:&nbsp; </strong></p>
             <ul className="subtask-list">
               {task.subtasks.map((subtask, index) => (
                 <li key={index} className={subtask.completed ? 'completed' : ''}>
@@ -109,7 +109,7 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
         )}
         {task.contacts.length > 0 && (
           <div>
-            <p><strong>Assigned Contacts:</strong></p>
+            <p><strong>Assigned Contacts: </strong></p>
             <div className="assigned-contacts">
               {task.contacts.map(contact => (
                 <div key={contact.id} className="contact-info">

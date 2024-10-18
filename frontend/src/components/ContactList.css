@@ -146,11 +146,12 @@ hr {
 }
 
 .header-divider-line {
-  width: 100%;
-  margin-top: 10px;
+  margin-top: 5px;
   display: block;
-  margin-inline-start: auto;
-  margin-inline-end: auto;
+  width: 95%;
+  margin-inline-start: 5px;
+  margin-inline-end: 5px;
+  unicode-bidi: -webkit-isolate;
   unicode-bidi: isolate;
   overflow: hidden;
   border-style: inset;
@@ -200,7 +201,6 @@ hr {
 
   .contact-details {
     width: calc(100% - 20px);
-    margin-left: 10px;
    
   }
 
@@ -219,7 +219,7 @@ hr {
 @media screen and (max-width: 1030px) {
   .contact-wrapper {
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 20px;
   }
 
   .contact-list-container {
@@ -242,7 +242,6 @@ hr {
 
   .contact-details {
     width: calc(100% - 20px);
-    margin-left: 30px;
   }
 
   .back-button-container {
@@ -254,12 +253,9 @@ hr {
     font-size: 30px;
     color: #003B46; 
     cursor: pointer; 
-    margin-right: 50px;
+    margin-right: 20px;
   }
 
-  .contact-add-task {
-    margin-right: 40px;
-}
 }
 
 
