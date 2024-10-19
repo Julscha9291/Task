@@ -55,7 +55,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     
                     // Fetch Task Details
                     try {
-                        const response = await fetch(`${process.env.REACT_APP_API_URL}api/tasks/${taskId}`, {
+                        const response = await fetch(`${process.env.REACT_APP_API_URL}api/tasks/${taskId}/`, {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
