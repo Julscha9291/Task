@@ -79,6 +79,7 @@ CHANNEL_LAYERS = {
 
 
 CORS_ALLOWED_ORIGINS = [
+    "https://task.julianschaepermeier.com",
     "http://localhost:3000"
 ]
 
