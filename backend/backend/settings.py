@@ -72,10 +72,12 @@ ASGI_APPLICATION = 'backend.asgi.application'
 # Channels Layer Backend (in-memory channel layer for dev)
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-        'hosts': [('localhost')],
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # Redis läuft lokal
+        },
     },
-} 
+}
 
 
 CORS_ALLOWED_ORIGINS = [
