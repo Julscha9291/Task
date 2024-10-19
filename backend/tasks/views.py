@@ -1,4 +1,3 @@
-
 from rest_framework import viewsets, generics, status
 from .models import Task, Subtask, Contact, CustomUser
 from .serializers import TaskSerializer, SubtaskSerializer, UserRegistrationSerializer, UserProfileSerializer, UserListSerializer, ContactSerializer
@@ -10,6 +9,10 @@ import logging
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.shortcuts import redirect
+
+def custom_404_view(request, exception):
+    return redirect('https://task.julianschaepermeier.com/')
 
 class LoginView(APIView):
     def post(self, request):
