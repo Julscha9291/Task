@@ -3,21 +3,18 @@ import './LoginForm.css';
 import RegistrationForm from './RegistrationForm';
 import { useNavigate } from 'react-router-dom';
 
-
 function LoginForm({ onLogin }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showRegistration, setShowRegistration] = useState(false);
     const [logoShrink, setLogoShrink] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
         if (token) {
             console.log('User is logged in');
-          
         } else {
             console.log('User is not logged in');
         }
@@ -26,11 +23,11 @@ function LoginForm({ onLogin }) {
     useEffect(() => {
         const timer1 = setTimeout(() => {
             setLogoShrink(true);
-        }, 1000); // 1 Sekunde warten, bevor die Animation beginnt
+        }, 1000); 
 
         const timer2 = setTimeout(() => {
             setShowLoginForm(true);
-        }, 2000); // 2 Sekunden nach dem Shrink das Login-Formular anzeigen
+        }, 2000); 
 
         return () => {
             clearTimeout(timer1);
@@ -55,7 +52,6 @@ function LoginForm({ onLogin }) {
                 return response.json();
             })
             .then(data => {
-                console.log('Server response:', data); // Debugging
                 if (data.access) {
                     localStorage.setItem('access_token', data.access);
                     localStorage.setItem('user_id', data.user.id);
@@ -63,7 +59,7 @@ function LoginForm({ onLogin }) {
                     localStorage.setItem('last_name', data.user.last_name);
                     localStorage.setItem('color', data.user.color);
                     onLogin();
-            
+
                     fetch(`${process.env.REACT_APP_API_URL}api/profile/`, {
                         headers: {
                             'Authorization': `Bearer ${data.access}`,
@@ -84,29 +80,22 @@ function LoginForm({ onLogin }) {
                         navigate('/');
                     })
                     .catch(error => {
-                        console.error('Error fetching profile data:', error);
                         navigate('/');
                     });
-                } else {
-                    console.error('Login failed, no access token returned');
                 }
-            })
-            
+            })          
             .catch((error) => {
-                console.error('Fetch error:', error); // Hier werden Fetch-Fehler behandelt
-                console.error('Error message:', error.message); // Zeigt die spezifische Fehlermeldung an
+                console.error('Login error:', error);
             });
     };
-    
-    
-    
+
     const handleSignUpClick = () => {
         setShowRegistration(true);
     };
 
     const handleRegistrationSuccess = () => {
         setShowRegistration(false);
-        navigate('/board'); // Weiterleiten zur "Board"-Komponente nach erfolgreicher Registrierung
+        navigate('/board'); 
     };
 
     const handleSwitchToLogin = () => {
@@ -114,7 +103,6 @@ function LoginForm({ onLogin }) {
     };
 
     const handleGuestLogin = () => {
-        // Hier die Gast-Zugangsdaten, die im Backend erstellt wurden
         const guestEmail = 'guest@example.com';
         const guestPassword = 'guestpassword';
         
@@ -132,7 +120,6 @@ function LoginForm({ onLogin }) {
             return response.json();
         })
         .then(data => {
-            console.log('Server response:', data);
             if (data.access) {
                 localStorage.setItem('access_token', data.access);
                 localStorage.setItem('user_id', data.user.id);
@@ -140,47 +127,60 @@ function LoginForm({ onLogin }) {
                 localStorage.setItem('last_name', data.user.last_name);
                 localStorage.setItem('color', data.user.color);
                 onLogin();
-                navigate('/');  // Weiterleiten zur Startseite oder zum Dashboard
-            } else {
-                console.error('Guest login failed, no access token returned');
+                navigate('/'); 
             }
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+            console.error('Guest login error:', error);
         });
     };
-    
 
     return (
-        
         <div className="login-page">
             {showRegistration ? (
-                <RegistrationForm onSuccess={handleRegistrationSuccess} onSwitchToLogin={handleSwitchToLogin} />
+                <RegistrationForm 
+                    onSuccess={handleRegistrationSuccess} 
+                    onSwitchToLogin={handleSwitchToLogin} 
+                />
             ) : (
                 <>
                     <div className={`logo-container ${logoShrink ? 'shrink' : ''}`}>
-                        
                         <img src="https://task.julianschaepermeier.com/static/logo2.png" alt="Task Logo" />
                     </div>
                     <div className={`login-container ${showLoginForm ? 'show' : ''}`}>
                         <div className="header-login">
-                        <div className="title-task-container">
-                        <h3 className='title-task'>Task</h3>
-                        <div className="vertical-line"></div>
-                        <div className="text-container">
-                        <div className="subtitle">Better</div>
-                        <div className="subtitle">Together</div>
-                        </div>
-                        </div>
+                            <div className="title-task-container">
+                                <h3 className='title-task'>Task</h3>
+                                <div className="vertical-line"></div>
+                                <div className="text-container">
+                                    <div className="subtitle">Better</div>
+                                    <div className="subtitle">Together</div>
+                                </div>
+                            </div>
                         </div>
                         <div className="form-container-login">
                             <form onSubmit={handleSubmit}>
                                 <h2>Login</h2>
-                                <input className="login-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-Mail" required /><br />
-                                <input className="login-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Passwort" required /><br />
+                                <input 
+                                    className="login-input" 
+                                    type="email" 
+                                    value={email} 
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    placeholder="E-Mail" 
+                                    required 
+                                /><br />
+                                <input 
+                                    className="login-input" 
+                                    type="password" 
+                                    value={password} 
+                                    onChange={(e) => setPassword(e.target.value)} 
+                                    placeholder="Passwort" 
+                                    required 
+                                /><br />
                                 <button className="login-button" type="submit">Login</button>
                             </form>
-                            <p className="register-text">Not registered yet? 
+                            <p className="register-text">
+                                Not registered yet? 
                                 <button onClick={handleSignUpClick} className="sign-button">Sign up!</button>
                             </p>
                             <p className="guest-text">

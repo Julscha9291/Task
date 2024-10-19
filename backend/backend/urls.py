@@ -3,17 +3,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from tasks.views import custom_404_view  # Importiere die Ansichten
+from tasks.views import custom_404_view  
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('tasks.urls')),  # Registriere deine API-URLs
-    path('', TemplateView.as_view(template_name='index.html')),  # Leitet die Root-URL an die index.html weiter
+    path('api/', include('tasks.urls')),  
+    path('', TemplateView.as_view(template_name='index.html')),  
 ]
 
-# Registrierung der benutzerdefinierten 404-Fehleransicht
 handler404 = custom_404_view
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

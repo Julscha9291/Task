@@ -1,21 +1,5 @@
 from django.db import models
-import random
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.dispatch import receiver
-from django.db.models.signals import post_save
-
-
-# Definieren Sie eine Liste von eindeutigen Farben
-COLOR_CHOICES = [
-    '#FF5733', '#33FF57', '#3357FF', '#FF33A8', '#A833FF', '#33FFF2', '#FF8333', '#33FF83', '#5733FF'
-]
-
-def get_unique_color():
-    used_colors = set(Contact.objects.values_list('color', flat=True))
-    available_colors = list(set(COLOR_CHOICES) - used_colors)
-    if not available_colors:
-        raise ValueError("Keine eindeutigen Farben mehr verfügbar")
-    return random.choice(available_colors)
+from django.contrib.auth.models import AbstractUser
 
 class Contact(models.Model):
     email = models.CharField(max_length=200, default='')
@@ -24,7 +8,7 @@ class Contact(models.Model):
     color = models.CharField(max_length=7, default='#ffffff', unique=False)
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Wenn der Kontakt neu ist
+        if not self.pk:  
             if self.first_name and self.last_name:
                 try:
                     user = CustomUser.objects.get(first_name=self.first_name, last_name=self.last_name)
@@ -67,7 +51,6 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-
 class Task(models.Model):
     CATEGORY_CHOICES = [
         ('to_do', 'To Do'),
@@ -100,8 +83,7 @@ class Subtask(models.Model):
 
     def __str__(self):
         return self.text
-    
-    
+       
 class Notification(models.Model):
     contacts = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name='notifications', null=True, blank=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='notifications')

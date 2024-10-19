@@ -8,7 +8,7 @@ This Task Management Application integrates React for the frontend and Django fo
 
 - **Login System**: Users can log in using their credentials, and there is a special guest login available for visitors.
 - **Summary Page**: Displays a summary of tasks, deadlines, and weather information.
-- **Kanban Board**: Tasks are organized in a Kanban board, allowing users to view and manage tasks. Users can create tasks for colleagues, and notifications are sent to all users upon task creation.
+- **Kanban Board**: Tasks are organized in a Kanban board, allowing users to view and manage tasks. Users can create tasks for colleagues, and notifications are sent to all users upon task creation in real time.
 - **Contacts Page**: Lists all users and their email addresses for easy communication.
 
 ## Installation

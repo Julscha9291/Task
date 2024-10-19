@@ -4,13 +4,13 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-  }
+}
   
-  .add-button p {
+.add-button p {
     margin: 0 0 0 5px;
-  }
+}
 
-  .task-container {
+.task-container {
     position: fixed;
     top: 0;
     right: -100%;
@@ -23,9 +23,9 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-  }
+}
   
-  .task-container.show {
+.task-container.show {
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -34,159 +34,154 @@
     z-index: 2000;
     padding: 20px;
     border-radius: 8px;
-  }
+}
   
-  .task-header {
+.task-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     border-bottom: 1px solid #ddd;
-  }
+}
   
-  .close-button {
+.close-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2em;
-  }
+}
   
-  .task-form {
+.task-form {
     display: flex;
+}
   
-  }
-  
-  .form-left, .form-right {
+.form-left, .form-right {
     flex: 1;
     padding: 10px;
-  }
+}
   
-  label {
+label {
     display: block;
     margin-top: 10px;
     margin-bottom: 5px;
     font-weight: bold;
-  }
+}
   
-  input, textarea, select {
+input, textarea, select {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-family: arial;
-  }
+}
   
-  
-  .prio-buttons {
+.prio-buttons {
     display: flex;
     gap: 10px;
-
-  }
+}
   
-  .prio-button {
+.prio-button {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
-  }
+}
 
-  .prio-button:hover {
+.prio-button:hover {
     transform: scale(1.05);
 }
   
 .prio-button.urgent {
-  background-color: #f44336;
+    background-color: #f44336;
 }
 
 .prio-button.medium {
-  background-color: #ffc107;
+    background-color: #ffc107;
 }
 
 .prio-button.low {
-  background-color: #4caf50;
+   background-color: #4caf50;
 }
 
 .prio-button.selected {
-  opacity: 1;
+    opacity: 1;
 }
 
 .prio-button:not(.selected) {
-  opacity: 0.5;
+    opacity: 0.5;
 }
-
   
-  .subtask-buttons {
+.subtask-buttons {
     display: flex;
     gap: 5px;
-  }
+}
   
-  .subtask-button {
+.subtask-button {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
 
-  .subtask-list {
+.subtask-list {
     list-style-type: none;
     padding: 0;
-  }
+}
   
-  .subtask-list li {
+.subtask-list li {
     display: flex;
     margin-bottom: 8px; 
     display: contents;
     white-space: nowrap;
     font-size: 14px; 
-  }
+}
   
-  .subtask-list input[type="checkbox"] {
+.subtask-list input[type="checkbox"] {
     margin-right: 8px; 
     display: flex;
-  }
+}
   
-  .subtask-label {
+.subtask-label {
     font-size: 14px; 
     display: contents;
-  }
+}
   
-  .form-footer {
+.form-footer {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end
-
   }
   
-  .clear-button, .create-button  {
+.clear-button, .create-button  {
     padding: 10px 20px;
     margin-left: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
   
-  .clear-button {
+.clear-button {
     background-color: #f0f0f0;
-  }
+}
   
-  .create-button {
+.create-button {
     background-color:rgba(248, 12, 99, 0.8);
     color: white;
-  }
+}
 
-  .clear-button-add {
+.clear-button-add {
     background-color: #f0f0f0;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
   
-  .task-container .subtask-list {
+.task-container .subtask-list {
     list-style: none;
     padding: 0;
     display: flex;
@@ -195,65 +190,61 @@
     align-items: flex-start;
 }
 
-
-
 .task-container .subtask-list li {
-  display: flex;
+    display: flex;
     margin-bottom: 5px;
 }
-
-
 
 .task-container .subtask-list input[type="checkbox"] {
     margin-right: 10px;
 }
 
-
 .assigned-contacts {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .assigned-contacts li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .contact-info-task {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .contact-initials {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
 }
 
 .remove-contact {
-  margin-left: 10px;
-  padding: 5px;
-  background-color: #f8f9fa; 
-  border: none;
-  cursor: pointer;
+    margin-left: 10px;
+    padding: 5px;
+    background-color: #f8f9fa; 
+    border: none;
+    cursor: pointer;
 }
 
 .error-text {
-  color: red;
-  font-size: 12px;
-  align-self: center; 
+    color: red;
+    font-size: 12px;
+    align-self: center; 
 }
 
 @media (min-width: 768px) and (max-width: 1024px){
+
   .task-form {
     flex-direction: column; 
     overflow-y: scroll;
@@ -276,23 +267,22 @@
   }
 
   .header-board {
+    margin-left: 0px;
+  }
+
+  .new-task-button {
     margin-left: 50px;
-}
+  }
 
-.new-task-button {
-
-  margin-left: 50px;
-
-}
-
-.column-title {
-  font-size: 30px;
-  font-weight: bold;
-}
+  .column-title {
+    font-size: 30px;
+    font-weight: bold;
+  }
 
 }
 
 @media (max-width: 768px){
+
   .task-form {
     flex-direction: column; 
     overflow-y: scroll;

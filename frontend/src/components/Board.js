@@ -40,7 +40,6 @@ const Board = () => {
       };
       setTasks(formattedTasks);
     } catch (error) {
-      console.error('Fehler beim Abrufen der Aufgaben:', error.message);
     }
   };
 
@@ -48,7 +47,6 @@ const Board = () => {
     navigate('/task');
     setShowTask(!showTask);
     if (category.trim() === '') {
-      console.warn('Kategorie ist leer');
       return;
     }
     setCategory(category); 
@@ -68,10 +66,9 @@ const Board = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      await fetchTasks(); // Aktualisiere die Aufgabenliste
+      await fetchTasks(); 
       setShowTask(false);
     } catch (error) {
-      console.error('Error creating task:', error);
     }
   };
   
@@ -117,7 +114,6 @@ const Board = () => {
       return response.json();
     })
     .then(data => {
-      console.log('Bearbeitete Aufgabe:', data);
       setTasks(prevTasks => {
         const updatedTasks = { ...prevTasks };
         updatedTasks[data.category] = updatedTasks[data.category].map(task => 
@@ -127,9 +123,9 @@ const Board = () => {
       });
       setSelectedTask(null);
       setIsEdit(false);
+   
     })
     .catch((error) => {
-      console.error('Fehler beim Bearbeiten der Aufgabe:', error);
     });
   };
 
@@ -151,11 +147,9 @@ const Board = () => {
       setSelectedTask(null);
     })
     .catch(error => {
-      console.error('Fehler beim Löschen der Aufgabe:', error);
     });
   };
   
-
   const renderTasks = (taskList) => {
     return taskList.map((task, index) => (
       <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
@@ -173,14 +167,16 @@ const Board = () => {
                 {task.priority || 'Low'}
               </button>
             </div>
-            <div className="task-content">{task.description}</div>
+            <div className="task-content">
+              {task.description}
+            </div>
             <div className="assigned-contacts-board">
               {task.contacts && task.contacts.slice(0, 3).map(contact => (
-       <div className="contact-initials-board" style={{ backgroundColor: contact.color }}>
-       {contact.first_name && contact.last_name
-         ? `${contact.first_name.charAt(0).toUpperCase()}${contact.last_name.charAt(0).toUpperCase()}`
-         : ''}
-     </div>
+                <div className="contact-initials-board" style={{ backgroundColor: contact.color }}>
+                  {contact.first_name && contact.last_name
+                    ? `${contact.first_name.charAt(0).toUpperCase()}${contact.last_name.charAt(0).toUpperCase()}`
+                    : ''}
+                </div>
               ))}
               {task.contacts.length > 3 && (
                 <div className="contact-initials" style={{ backgroundColor: 'grey' }}>
@@ -192,7 +188,12 @@ const Board = () => {
               <div className="subtask-progress">
                 {`${task.subtasks.filter(subtask => subtask.completed).length}/${task.subtasks.length}`}
                 <div className="subtask-bar">
-                  <div className="subtask-progress-fill" style={{ width: `${(task.subtasks.filter(subtask => subtask.completed).length / task.subtasks.length) * 100}%` }}></div>
+                  <div
+                    className="subtask-progress-fill"
+                    style={{
+                      width: `${(task.subtasks.filter(subtask => subtask.completed).length / task.subtasks.length) * 100}%`
+                    }}
+                  ></div>
                 </div>
               </div>
             )}
@@ -201,54 +202,52 @@ const Board = () => {
       </Draggable>
     ));
   };
-
+  
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
-
+  
     if (!destination) {
       return;
     }
-
+  
     if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
-
+  
     const start = tasks[source.droppableId];
     const finish = tasks[destination.droppableId];
-
+  
     if (start === finish) {
       const newTaskIds = Array.from(start);
       const [movedTask] = newTaskIds.splice(source.index, 1);
       newTaskIds.splice(destination.index, 0, movedTask);
-
+  
       const newTasks = {
         ...tasks,
         [source.droppableId]: newTaskIds,
       };
-
+  
       setTasks(newTasks);
       return;
     }
-
+  
     const startTaskIds = Array.from(start);
     const [movedTask] = startTaskIds.splice(source.index, 1);
     const finishTaskIds = Array.from(finish);
     finishTaskIds.splice(destination.index, 0, movedTask);
-
+  
     const newTasks = {
       ...tasks,
       [source.droppableId]: startTaskIds,
       [destination.droppableId]: finishTaskIds,
     };
-
+  
     setTasks(newTasks);
-
+  
     const updatedTaskData = {
       category: destination.droppableId,
     };
-
-    console.log('Updating task category:', draggableId, 'with data:', updatedTaskData);
-
+  
     fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${draggableId}/`, {
       method: 'PATCH',
       headers: {
@@ -256,62 +255,70 @@ const Board = () => {
       },
       body: JSON.stringify(updatedTaskData),
     })
-    .then(response => {
-      if (!response.ok) {
-        return response.json().then(err => {
-          console.error('Fehlerdetails:', err);
-          throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        });
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Kategorie aktualisiert:', data);
-    })
-    .catch((error) => {
-      console.error('Fehler beim Aktualisieren der Kategorie:', error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => {
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+          });
+        }
+        return response.json();
+      })
+      .then(data => {
+      })
+      .catch((error) => {
+        console.error('Fehler beim Aktualisieren der Aufgabe:', error);
+      });
   };
-
+  
   return (
     <div className="board-container">
-       <div className="header-board">
-        Board Tasks
+      <div className="header-div">
+        <div className="header-board">
+          Tasks
+        </div>
+  
+        <button className="new-task-button" onClick={() => toggleTask('')}>
+          <FontAwesomeIcon icon={faPlus} className="navbar-icon" />
+          <p className="add-text">Add new Task</p>
+        </button>
       </div>
-
-    <button className="new-task-button" onClick={() => toggleTask('')}>
-      <FontAwesomeIcon icon={faPlus} className="navbar-icon" />
-      <p className="add-text">Add new Task</p>
-    </button>
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="kanban-board">
-        {Object.keys(tasks).map(category => (
-          <Droppable key={category} droppableId={category}>
-            {(provided) => (
-              <div className="board-column" ref={provided.innerRef} {...provided.droppableProps}>
-              <h3 className="column-title">{category.replace(/([A-Z])/g, ' $1')}</h3>
-              <ul className="task-list">
-                  {renderTasks(tasks[category])}
-                  {provided.placeholder}
-              </ul>
-          </div>
-            )}
-          </Droppable>
-        ))}
-      </div>
-      <TaskDetailsPopup task={selectedTask} onClose={closeTaskDetails} onEdit={() => setIsEdit(true)} onDelete={handleDeleteTask} />
-      <Task 
-        show={showTask || isEdit} 
-        onClose={closeTaskDetails} 
-        createTask={createTask} 
-        editTask={handleEditTask} 
-        taskToEdit={isEdit ? selectedTask : null} 
-        initialCategory={category}  
-/>
-
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="kanban-board">
+          {Object.keys(tasks).map(category => (
+            <Droppable key={category} droppableId={category}>
+              {(provided) => (
+                <div
+                  className="board-column"
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  <h3 className="column-title">{category.replace(/([A-Z])/g, ' $1')}</h3>
+                  <ul className="task-list">
+                    {renderTasks(tasks[category])}
+                    {provided.placeholder}
+                  </ul>
+                </div>
+              )}
+            </Droppable>
+          ))}
+        </div>
+        <TaskDetailsPopup
+          task={selectedTask}
+          onClose={closeTaskDetails}
+          onEdit={() => setIsEdit(true)}
+          onDelete={handleDeleteTask}
+        />
+        <Task
+          show={showTask || isEdit}
+          onClose={closeTaskDetails}
+          createTask={createTask}
+          editTask={handleEditTask}
+          taskToEdit={isEdit ? selectedTask : null}
+          initialCategory={category}
+        />
       </DragDropContext>
-      </div>
-  );
+    </div>
+  );  
 };
 
 export default Board;

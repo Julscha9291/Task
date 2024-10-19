@@ -13,29 +13,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = config('SECRET_KEY')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4p7ageb$mf1q1!i_^28k59)x%-87e==k^06+zq4c7=sg-*z=fa'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 
-                 'localhost', 
-                 '127.0.0.1:62484',
-                 'task.julianschaepermeier.com',
-                 'julianschaepermeier.com',
-                 '85.22.34.217',]
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    'localhost', 
+    '127.0.0.1:62484',
+    'task.julianschaepermeier.com',
+    'julianschaepermeier.com',
+    '85.22.34.217',]
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'channels',
@@ -55,7 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-      'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -66,10 +60,10 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True 
 
-# Channels Settings
+CSRF_COOKIE_SECURE = True
+
 ASGI_APPLICATION = 'backend.asgi.application'
 
-# Channels Layer Backend (in-memory channel layer for dev)
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -79,13 +73,11 @@ CHANNEL_LAYERS = {
     },
 }
 
-
 CORS_ALLOWED_ORIGINS = [
     "https://task.julianschaepermeier.com",
     "http://localhost:3000"
 ]
 
-# For CSRF protection
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000"
 ]
@@ -118,19 +110,15 @@ ROOT_URLCONF = 'backend.urls'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  
 
-# Sitzung auf Datei oder Cache basiert speichern
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Standard: Datenbank-basiert
+SESSION_COOKIE_AGE = 7200  
 
-# Sitzungslaufzeit (in Sekunden), standardmäßig wird die Sitzung geschlossen, wenn der Browser geschlossen wird
-SESSION_COOKIE_AGE = 1209600  # Zwei Wochen
+SESSION_SAVE_EVERY_REQUEST = True
 
-# Festlegen, dass die Sitzungscookies auch bei einem erneuten Browserstart bestehen bleiben
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-# Sicherstellen, dass die Sitzung nur über HTTPS übertragen wird
-SESSION_COOKIE_SECURE = True  # Setze dies auf True, wenn HTTPS verwendet wird
-
+SESSION_COOKIE_SECURE = True  
 
 TEMPLATES = [
     {
@@ -150,20 +138,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -189,8 +169,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -200,20 +178,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = '/static/'
 
-# List of additional locations of static files
 STATICFILES_DIRS = [
     BASE_DIR / '../frontend/build/static',
 ]
 
-# Absolute filesystem path to the directory that will hold static files.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_HSTS_SECONDS = 31536000  
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = True

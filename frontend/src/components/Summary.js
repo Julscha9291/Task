@@ -6,9 +6,9 @@ import './Summary.css';
 const Summary = () => {
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
-  const [firstName, setFirstName] = useState(''); // State für den Vornamen
-  const [lastName, setLastName] = useState('');   // State für den Nachnamen
-  const [weather, setWeather] = useState(null);  // State für Wetterdaten
+  const [firstName, setFirstName] = useState(''); 
+  const [lastName, setLastName] = useState('');   
+  const [weather, setWeather] = useState(null);  
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}api/summary/`)
@@ -20,12 +20,11 @@ const Summary = () => {
       })
       .then(data => setSummary(data))
       .catch(error => setError(error.toString()));
-      
-    setFirstName(localStorage.getItem('first_name') || ''); // Laden des Vornamens aus dem Local Storage
-    setLastName(localStorage.getItem('last_name') || '');   // Optional: Laden des Nachnamens aus dem Local Storage
+    
+    setFirstName(localStorage.getItem('first_name') || ''); 
+    setLastName(localStorage.getItem('last_name') || '');   
 
-    // Wetterdaten für Dortmund abrufen
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=Dortmund,de&units=metric&appid=2f40782865c896edfcc94895beeb029a')
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Dortmund,de&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
       .then(response => response.json())
       .then(data => setWeather(data))
       .catch(error => setError(error.toString()));
@@ -46,7 +45,6 @@ const Summary = () => {
     return greeting;
   };
 
-  // Function to capitalize the first letter of a string
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
@@ -60,18 +58,15 @@ const Summary = () => {
   }
 
   const formatDate = (dateString) => {
-    if (!dateString) {
-      return ''; // Oder einen Standardwert zurückgeben, je nach Anwendungsfall
-    }
+      if (!dateString) {
+        return ''; 
+      }
 
-    const date = new Date(dateString);
-
-    // Überprüfe, ob das Datum gültig ist
-    if (isNaN(date.getTime())) {
-      return ''; // Oder einen Standardwert zurückgeben, falls das Datum ungültig ist
-    }
-
-    return date.toLocaleDateString();
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return ''; 
+      }
+      return date.toLocaleDateString();
   };
 
   const mapCategoryName = (category) => {
@@ -85,70 +80,68 @@ const Summary = () => {
     }
   };
 
-
   return (
     <div className="summary-wrapper">
       <div className="summary-greeting">
-      <h1 className='h1-summary'>
-      {getGreeting()}, <span className='spacer'></span>
-      <span className='name'>{firstName} {lastName}</span>!
-    </h1>
+        <h1 className='h1-summary'>
+          {getGreeting()}, <span className='spacer'></span>
+          <span className='name'>{firstName} {lastName}</span>!
+        </h1>
       </div>
       <div className="first-wrapper">
-      <div className="summary-container">
-        <h1 className='h2-summary'> First things first</h1>
-        <div className="summary-grid-first">
-          <Link to="/board" className="summary-item urgent">
-            <span className="summary-number">{summary.urgent_tasks}</span>
-            <span className="summary-label">Urgent</span>
-          </Link>
-          <Link to="/board" className="summary-item">
-            <span className="summary-deadline">{formatDate(summary.next_deadline)}</span>
-            <span className="summary-label">Upcoming Deadline</span>
-          </Link>
+        <div className="summary-container">
+          <h1 className='h2-summary'> First things first</h1>
+          <div className="summary-grid-first">
+            <Link to="/board" className="summary-item urgent">
+              <span className="summary-number">{summary.urgent_tasks}</span>
+              <span className="summary-label">Urgent</span>
+            </Link>
+            <Link to="/board" className="summary-item">
+              <span className="summary-deadline">{formatDate(summary.next_deadline)}</span>
+              <span className="summary-label">Upcoming Deadline</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="weather-container">
+          <h1 className='h2-summary'>Current Weather in Dortmund</h1>
+          {weather && weather.main ? (
+            <div className="weather-content">
+              <div className="weather-item">
+                <span className="weather-label">Temperature</span>
+                <span className="weather-value">{weather.main.temp}°C</span>
+                <img 
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} 
+                  alt={weather.weather[0].description} 
+                  className="weather-icon"  
+                />
+              </div>
+             
+              <div className="weather-item">
+                <span className="weather-label">Humidity</span>
+                <span className="weather-value">
+                  {weather.main.humidity}%
+                  <div className="icon">
+                    <i className="fas fa-tint"></i> 
+                  </div>
+                </span>
+              </div>
+              
+              <div className="weather-item">
+                <span className="weather-label">Wind Speed</span>
+                <span className="weather-value">
+                  {weather.wind.speed} m/s
+                  <div className="icon">
+                    <i className="fas fa-wind"></i>
+                  </div> 
+                </span>
+              </div>
+            </div>
+          ) : (
+            <p>Loading weather data...</p>
+          )}
         </div>
       </div>
-
-
-      <div className="weather-container">
-  <h1 className='h2-summary'>Current Weather in Dortmund</h1>
-  {weather && weather.main ? (
-    <div className="weather-content">
-      <div className="weather-item">
-        <span className="weather-label">Temperature</span>
-        <span className="weather-value">{weather.main.temp}°C</span>
-        <img 
-            src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} 
-            alt={weather.weather[0].description} 
-            className="weather-icon"  // Hier wird die Klasse zugewiesen
-          />
-      </div>
-     
-      <div className="weather-item">
-        <span className="weather-label" >Humidity</span>
-        <span className="weather-value">
-          {weather.main.humidity}%
-          <div className="icon">
-          <i className="fas fa-tint"></i> {/* Font Awesome Icon for Humidity */}
-          </div>
-        </span>
-      </div>
-      
-      <div className="weather-item">
-        <span className="weather-label">Wind Speed</span>
-        <span className="weather-value">
-          {weather.wind.speed} m/s
-          <div className="icon">
-          <i className="fas fa-wind"></i> {/* Font Awesome Icon for Wind Speed */}
-          </div> 
-        </span>
-      </div>
-    </div>
-  ) : (
-    <p>Loading weather data...</p>
-  )}
-</div>
-</div>
 
       <div className="summary-container-total">
         <h1 className='h2-summary'> Summary Total Tasks</h1>

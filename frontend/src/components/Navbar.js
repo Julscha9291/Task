@@ -39,11 +39,9 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         const ws = new WebSocket('wss://task.julianschaepermeier.com/ws/notifications/');
     
         ws.onopen = () => {
-            console.log("WebSocket is open now.");
         };
     
         ws.onmessage = async function(event) {
-            console.log('Received WebSocket message:', event.data);  // Log the incoming message
     
             const data = JSON.parse(event.data);
     
@@ -61,13 +59,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                                 'Content-Type': 'application/json',
                             },
                         });
-                        if (!response.ok) {
-                            const errorDetails = await response.json();  // Log additional error details
-                            console.error('Error fetching task details:', errorDetails);
+                        if (!response.ok) { // Log additional error details
                             throw new Error('Network response was not ok');
                         }
                         const taskDetails = await response.json();
-                        console.log('Task Details fetched successfully:', taskDetails);  // Log fetched details
                         setNotificationDetails(prevDetails => [...prevDetails, taskDetails]);
     
                         // Update notifications and increment counter
@@ -76,18 +71,15 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     
                         setSnackbarOpen(true);
                     } catch (error) {
-                        console.error('Error fetching task details:', error);
                     }
                 }
             }
         };
     
         ws.onclose = function(e) {
-            console.log('WebSocket closed unexpectedly');
         };
     
         ws.onerror = function(err) {
-            console.error('WebSocket encountered an error:', err.message || err);  // Improved error log
         };
     
         return () => {

@@ -28,6 +28,7 @@ const App = () => {
   const handleEditTask = (task) => {
     setTaskToEdit(task);
     window.history.pushState({}, '', '/task');
+  
   };
 
   const handleLogin = (token) => {

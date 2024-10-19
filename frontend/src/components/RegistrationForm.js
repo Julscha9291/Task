@@ -27,7 +27,6 @@ function RegistrationForm({ onSuccess, onSwitchToLogin }) {
             });
             onSuccess(); 
              } catch (error) {
-                 console.error('Registration error:', error);
             }
          };
 

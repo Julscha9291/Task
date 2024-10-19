@@ -3,7 +3,7 @@ from .models import Task, Subtask, Contact, CustomUser
 from .serializers import TaskSerializer, SubtaskSerializer, UserRegistrationSerializer, UserProfileSerializer, UserListSerializer, ContactSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.db.models import Count, Min
+from django.db.models import Count
 from rest_framework import status
 import logging
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -35,10 +35,6 @@ class LoginView(APIView):
                     }
                 })
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-logger = logging.getLogger(__name__)
-
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -84,29 +80,25 @@ class UserRegistrationView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserRegistrationSerializer
     
-    
 class UserProfileView(APIView):    
     
     def get(self, request):
         user = request.user
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)    
-    
-    
+      
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserListSerializer    
     
-
 class UserTaskSummaryView(APIView):
-    permission_classes = [AllowAny]  # Keine Authentifizierung erforderlich
+    permission_classes = [AllowAny]  
     def get(self, request, user_id):
         try:
             user = Contact.objects.get(id=user_id)
         except Contact.DoesNotExist:
             return Response({"error": "Contact not found"}, status=status.HTTP_404_NOT_FOUND)
         
-        # Filtere Aufgaben, die diesem Kontakt zugewiesen sind
         tasks = Task.objects.filter(contacts=user)
         
         total_tasks = tasks.count()

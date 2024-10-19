@@ -12,12 +12,9 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
     }
 
     const date = new Date(dateString);
-
-    // Überprüfe, ob das Datum gültig ist
     if (isNaN(date.getTime())) {
-      return ''; // Oder einen Standardwert zurückgeben, falls das Datum ungültig ist
+      return ''; 
     }
-
     return date.toLocaleDateString();
   };
 
@@ -55,7 +52,6 @@ const TaskDetailsPopup = ({ task, onClose, onEdit, onDelete }) => {
 
       task.subtasks = updatedSubtasks; 
     } catch (error) {
-      console.error('Error toggling subtask:', error);
     }
   };
 

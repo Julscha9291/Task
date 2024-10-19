@@ -2,7 +2,7 @@
     display: flex;
   }
   
-  .navbar {
+.navbar {
     height: 60px;
     display: flex;
     align-items: center;
@@ -11,14 +11,13 @@
     position: fixed;
     top: 0;
     z-index: 1000;
-  }
+}
   
-  .ListItem {
+.ListItem {
     transition: background-color 1.3s ease;
-  }
+}
   
-
-  .selected {
+.selected {
     background-color: rgba(52, 152, 219, 0.43) !important; 
     width: 95% !important;
     border-top-right-radius: 12px !important; 
@@ -64,38 +63,37 @@
   font-weight: normal; 
 }
 
-  .navbar-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 60px;
-    width: 100%;
-    padding: 0 30px;
-    margin-top: 10px;
-  }
+.navbar-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  padding: 0 30px;
+  margin-top: 10px;
+}
   
-  .navbar-logo {
-    margin-top: -20%;
-    color: #fff;
-    display: flex;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 2rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.navbar-logo {
+  margin-top: -20%;
+  color: #fff;
+  display: flex;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-  }
-
-  .css-10hburv-MuiTypography-root {
-    margin: 0;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.5;
-    letter-spacing: 0.00938em;
-    display: block;
-    color: #f1f4f7;
+.css-10hburv-MuiTypography-root {
+  margin: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  display: block;
+  color: #f1f4f7;
 }
 
 .css-yb0lig{
@@ -108,27 +106,25 @@
   display: block;
   color: #f1f4f7;
 }
-  
 
-  .menu-icon {
-    display: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
 
-
-  /* Dark Mode Styles - kommt noch*/
-  .dark-mode .list-item-icon .fa-icon,
-  .dark-mode .navbar-icon {
+/* Dark Mode Styles - kommt noch*/
+.dark-mode .list-item-icon .fa-icon,
+.dark-mode .navbar-icon {
     color: #fff;
-  }
+}
   
-  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .navbar-image  {
-       width: 100;
+.navbar-image  {
+    width: 100;
     height: auto;
     margin-top: 0;
     margin-bottom: 10px;
@@ -140,22 +136,23 @@
     margin-top: 0; 
 }
   
-  .light-mode .MuiDivider-root {
+.light-mode .MuiDivider-root {
     width: 90%;
     align-self: center;
-  }
+}
   
-  .dark-mode .MuiDivider-root {
+.dark-mode .MuiDivider-root {
     background-color: #bbb; 
     width: 90%;
     align-self: center;
-  }
+}
   
-  /* Placeholder text color for dark mode */
-  .dark-mode .search-input::placeholder {
+/* Placeholder text color for dark mode */
+.dark-mode .search-input::placeholder {
     color: #fff;
-  }
-  .profile-initials {
+}
+
+.profile-initials {
     display: flex;
     width: 80px;
     height: 80px;
@@ -182,33 +179,29 @@
   order: 2;
 }
 
+.logout-icon {
+  margin-left: 10px;
+  color:  #fff;    
+}
   
-  .logout-icon {
-    margin-left: 10px;
-    color:  #fff;
-      
-  }
-  
-  .css-vrk4dv {
-    padding: 16px;
-    text-align: center;
-    margin-top: 70px;
-    
-  }
+.css-vrk4dv {
+  padding: 16px;
+  text-align: center;
+  margin-top: 70px;  
+}
 
-  .drawer-paper {
-    width: 250px;
-    border-right: none;
-   box-shadow: 10px;
-  }
+.drawer-paper {
+  width: 250px;
+  border-right: none;
+  box-shadow: 10px;
+}
   
-  .mobile-drawer .MuiPaper-root {
-    background-color: #08223d;
-    top: 0px;
-  }
+.mobile-drawer .MuiPaper-root {
+  background-color: #08223d;
+  top: 0px;
+}
   
- /* Hinzufügen eines roten Kreises um die Benachrichtigungszahl */
- .notification-icon, .calendar-icon {
+.notification-icon, .calendar-icon {
   margin-right: 20px;
   padding: 13px;
   color: #0e2941;
@@ -227,12 +220,10 @@
   position: relative; 
 }
 
-/* Stil für das Kalender-Icon */
 .calendar-icon {
   display: inline-block;
 }
 
-/* Kalender-Container, der direkt unter dem Icon angezeigt wird */
 .calendar-dropdown {
   position: absolute; 
   top: 60; 
@@ -244,7 +235,6 @@
   max-width: 300px; 
 }
 
-/* Stil für die Kalender-Komponente */
 .react-calendar {
   background-color: white;
   border: 1px solid #a0a096;
@@ -252,7 +242,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
 }
-
 
 .user {
   display: flex;
@@ -264,12 +253,11 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
 }
 
-
 .user-name{
   margin-left: 20px;
   color:#0e2941;
+  margin-right: 10px;
 }
-
 
 .dropdown-menu {
   position: absolute;
@@ -321,7 +309,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   cursor: pointer;
 }
 
-
 .notification-count {
   position: absolute;
   top: -5px; 
@@ -339,7 +326,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   margin-right: 10px;
 }
 
-
 .css-qc420c-MuiTypography-root {
   margin: 0;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -351,42 +337,41 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   color:#f1f4f7;
 }
   
-  .dark-mode .navbar {
+.dark-mode .navbar {
     background: #222428;
-  }
+}
   
-  .dark-mode p {
+.dark-mode p {
     color: #fff;
-  }
+}
   
-  .dark-mode .search-form {
+.dark-mode .search-form {
     background-color: #222428;
-  }
+}
   
-  .dark-mode .search-input {
+.dark-mode .search-input {
     background-color: #222428;
     color: #fff;
-  }
+}
   
-  .dark-mode .search-button {
+.dark-mode .search-button {
     background-color: #888;
-  }
+}
   
-  .dark-mode .drawer-paper {
+.dark-mode .drawer-paper {
     background-color: #222428;
     color: #fff;
-  }
+}
   
-  .dark-mode .mobile-drawer .MuiPaper-root {
+.dark-mode .mobile-drawer .MuiPaper-root {
     background-color: #222428; 
-  }
+}
 
-  .css-r40f8v-MuiTypography-root {
+.css-r40f8v-MuiTypography-root {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 
 .notification-dropdown {
   position: absolute;
@@ -429,7 +414,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
 }
 
 .notification-item {
-  /* padding: 10px; */
   display: flex;
   align-items: center;
   margin-left: 10px;
@@ -442,7 +426,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
   align-items: flex-start;
   gap: 10px;
 }
-
 
 .no-notifications {
   text-align: center;
@@ -478,7 +461,6 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
 .view-all button:hover {
   background-color: #218838;
 }
-
 
 .text-dropdown{
   color:#555;
@@ -521,8 +503,8 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
       margin-top:20px;
       border-radius:50px;
       margin-left: 10px;
-
     }
+
     .task-logo {
       display: block;
       top: 10px;
@@ -571,9 +553,8 @@ svg:not(:root).svg-inline--fa, svg:not(:host).svg-inline--fa {
 
   }
   
-
-
   @media (max-width: 768px) {
+    
     .mobile-drawer {
       display: block;
     }

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-
 const ContactList = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -19,21 +18,13 @@ const ContactList = () => {
         const sortedUsers = response.data.sort((a, b) => {
           const nameA = a.last_name.toUpperCase();
           const nameB = b.last_name.toUpperCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
+          return nameA.localeCompare(nameB);
         });
         setUsers(sortedUsers);
       })
       .catch(error => {
-        console.error('Error fetching users:', error);
       });
 
-    // Check screen size for mobile view
     const checkScreenSize = () => {
       setIsMobileView(window.innerWidth <= 1024);
     };
@@ -50,23 +41,22 @@ const ContactList = () => {
 
   const handleUserClick = (user) => {
     fetch(`${process.env.REACT_APP_API_URL}api/users/${user.id}/user-summary/`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
     })
     .then(data => {
-        setSelectedUser(user);
-        setTaskSummary(data);
+      setSelectedUser(user);
+      setTaskSummary(data);
     })
     .catch(error => {
-        console.error('Error fetching task summary:', error);
     });
   };
 
@@ -81,7 +71,7 @@ const ContactList = () => {
       case 'awaitingFeedback':
         return 'awaiting Feedback';
       default:
-        return category.charAt(0).toUpperCase() + category.slice(1); // Großbuchstabe am Anfang
+        return category.charAt(0).toUpperCase() + category.slice(1);
     }
   };
 
@@ -131,7 +121,6 @@ const ContactList = () => {
     <div className="contact-list-container">
       <div className="contact-header">
         <h1>Contacts</h1>
-    
       </div>
       <div className={`contact-wrapper ${isMobileView && selectedUser ? 'mobile-details-view' : ''}`}>
         {!selectedUser || !isMobileView ? (
@@ -144,11 +133,10 @@ const ContactList = () => {
           <div className="contact-details">
             {isMobileView && (
               <div className="back-button-container">
-              <div className="back-button" onClick={handleBackClick}>
-              <FontAwesomeIcon icon={faArrowLeft} />
+                <div className="back-button" onClick={handleBackClick}>
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                </div>
               </div>
-            </div>
-
             )}
             <div className="contact-details-header">
               <div className="contact-initials-big" style={{ backgroundColor: selectedUser.color }}>
@@ -158,7 +146,7 @@ const ContactList = () => {
                 <div className="contact-name-big">{selectedUser.first_name} {selectedUser.last_name}</div>
               </div>
             </div>
-            <hr className="header-divider-line"/>
+            <hr className="header-divider-line" />
             <div className="contact-info-box">
               <h3 className="h3-box">Contact Information</h3>
               <p>Email: <a href={`mailto:${selectedUser.email}`}>{selectedUser.email}</a></p>

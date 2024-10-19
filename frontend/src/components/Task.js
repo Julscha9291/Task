@@ -7,9 +7,8 @@ import 'react-datetime/css/react-datetime.css';
 import './Task.css';
 import PropTypes from 'prop-types';
 
-const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory }) => {
+const Task = ({ show, onClose,taskToEdit, initialCategory }) => {
   const navigate = useNavigate();
-
   const categories = [
     { id: 'todo', name: 'To Do' },
     { id: 'inProgress', name: 'In Progress' },
@@ -26,10 +25,10 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
   const [assignedContacts, setAssignedContacts] = useState([]);
   const [selectedPriority, setSelectedPriority] = useState(null);
   const [formErrors, setFormErrors] = useState({
-    title: false,
-    description: false,
-    category: false
-  });
+                                        title: false,
+                                        description: false,
+                                        category: false
+                                      });
 
   const [users, setUsers] = useState([]);
   const [usedColors, setUsedColors] = useState({});
@@ -49,11 +48,9 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
         }
       })
       .then(data => {
-        console.log('Fetched users:', data); // Log the fetched users
-        setUsers(data); // Set users state with received JSON data
+        setUsers(data); 
       })
       .catch(error => {
-        console.error('Fetch error:', error);
       });
   }, []);
 
@@ -61,17 +58,15 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
     if (taskToEdit) {
       setTitle(taskToEdit.title);
       setDescription(taskToEdit.description);
-      setCategory(taskToEdit.category || ''); // Handle undefined category
+      setCategory(taskToEdit.category || ''); 
       setDueDate(taskToEdit.due_date ? new Date(taskToEdit.due_date) : null);
       setSubtasks(taskToEdit.subtasks || []);
       setAssignedContacts(taskToEdit.contacts || []);
       setSelectedPriority(taskToEdit.priority || null);
     } else {
-      setCategory(initialCategory || ''); // Set category to an empty string if undefined
+      setCategory(initialCategory || '');
     }
   }, [taskToEdit, initialCategory]);
-  
-  
 
   const handleAddSubtask = () => {
     if (subtaskText.trim()) {
@@ -88,7 +83,6 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
       setAssignedContacts([...assignedContacts, selectedContact]);
       setSelectedContacts([...selectedContacts, selectedContact]);
       setUsedColors({ ...usedColors, [selectedContact.color]: true });
-      console.log('Assigned contact color:', selectedContact.color); // Log the color of the assigned contact
     }
   };
 
@@ -108,20 +102,20 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
   };
 
   const handleClearAll = () => {
-    setTitle('');
-    setDescription('');
-    setCategory('');
-    setDueDate(null);
-    setSubtaskText('');
-    setSubtasks([]);
-    setAssignedContacts([]);
-    setSelectedPriority(null);
-    setUsedColors({});
-    setFormErrors({
-        title: false,
-        description: false,
-        category: false
-    });
+        setTitle('');
+        setDescription('');
+        setCategory('');
+        setDueDate(null);
+        setSubtaskText('');
+        setSubtasks([]);
+        setAssignedContacts([]);
+        setSelectedPriority(null);
+        setUsedColors({});
+        setFormErrors({
+            title: false,
+            description: false,
+            category: false
+        });
   };
 
   const handleSubmit = (e) => {
@@ -144,31 +138,27 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
     }
 
     const taskData = {
-      title,
-      description,
-      category,
-      due_date: dueDate,
-      priority: selectedPriority,
-      subtasks: subtasks.map(subtask => ({
-          text: subtask.text,
-          completed: subtask.completed
-      })),
-      contacts: assignedContacts.map(contact => ({
-        id: contact.id,  // ID des Kontakts
-        first_name: contact.first_name,
-        last_name: contact.last_name,
-        color: contact.color
-      }))
+          title,
+          description,
+          category,
+          due_date: dueDate,
+          priority: selectedPriority,
+          subtasks: subtasks.map(subtask => ({
+              text: subtask.text,
+              completed: subtask.completed
+          })),
+          contacts: assignedContacts.map(contact => ({
+            id: contact.id,  
+            first_name: contact.first_name,
+            last_name: contact.last_name,
+            color: contact.color
+          }))
     };
 
-    // Check for invalid contact IDs
     const invalidContacts = taskData.contacts.filter(contact => !contact.id);
-    if (invalidContacts.length > 0) {
-      console.error('Invalid contacts detected:', invalidContacts);
-      return; // Prevent form submission
-    }
-
-    console.log('Task data to send:', taskData);
+      if (invalidContacts.length > 0) {
+        return;
+      }
 
     if (taskToEdit) {
       fetch(`${process.env.REACT_APP_API_URL}/api/tasks/${taskToEdit.id}/`, {
@@ -181,21 +171,18 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
       .then(response => {
           if (!response.ok) {
               return response.json().then(errorData => {
-                  console.error('Error response:', errorData);
                   throw new Error(`HTTP error! status: ${response.status}`);
               });
           }
           return response.json();
       })
       .then(data => {
-          console.log('Updated task:', data);
           handleClearAll();
           onClose();
-          navigate('/board'); // Redirect to the board
-         // window.location.reload();
+          navigate('/board'); 
+          window.location.reload();
       })
       .catch((error) => {
-          console.error('Fetch error:', error);
       });
     } else {
       fetch(`${process.env.REACT_APP_API_URL}api/tasks/`, {
@@ -208,22 +195,18 @@ const Task = ({ show, onClose, createTask, editTask, taskToEdit, initialCategory
       .then(response => {
           if (!response.ok) {
               return response.json().then(errorData => {
-                  console.error('Error response:', errorData);
                   throw new Error(`HTTP error! status: ${response.status}`);
               });
           }
           return response.json();
       })
       .then(data => {
-         // window.location.reload();
-          console.log('Created task:', data);
           handleClearAll();
           onClose();
-          navigate('/board'); // Redirect to the board
+          navigate('/board'); 
          
       })
       .catch((error) => {
-          console.error('Fetch error:', error);
       });
     }
   };

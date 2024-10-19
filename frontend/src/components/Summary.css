@@ -1,5 +1,3 @@
-/* Summary.css */
-
 .summary-wrapper {
     display: flex;
     justify-content: space-around;
@@ -11,113 +9,112 @@
 .summary-greeting {
     padding: 10px;
     text-align: center;
-border-radius: 5px;
-margin-right: 20px;
- color: #333;
+    border-radius: 5px;
+    margin-right: 20px;
+    color: #333;
 }
 
 .spacer {
-  display: inline-block;
-  width: 5px; 
+    display: inline-block;
+    width: 5px; 
 }
 
 .h1-summary{
-  color:#555;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 0px;
-  font-size: 2.5em;
+    color:#555;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0px;
+    font-size: 2.5em;
 }
 
 .h2-summary{
-  color:#555;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 0px;
-  font-size: 1.5em;
+    color:#555;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 0px;
+    font-size: 1.5em;
 }
 
 .name {
-  color: #3498db; 
+    color: #3498db; 
 }
 
 .weather-icon {
-  width: 40px;
-  height: 200px;
-  height: auto;
-  transition: all 1s ease;
-  background: gray;
-  border-radius: 50%;
-  align-self: center;
+    width: 40px;
+    height: 200px;
+    height: auto;
+    transition: all 1s ease;
+    background: gray;
+    border-radius: 50%;
+    align-self: center;
 }
 
-/* Wrapper für die beiden Container */
 .first-wrapper {
-  display: flex;
-  justify-content: space-between; 
-  flex-direction: row;
-  width: 100%; 
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: row;
+    width: 100%; 
 }
 
 .summary-container,
 .weather-container {
-  flex: 1; 
-  padding: 20px;
-  padding-top: 10px;
-  text-align: center;
-  border-radius: 5px;
-  color: #333;
-  box-sizing: border-box; 
-  max-width: 50%; 
-  background-color: #fff;
-  margin-right:20px;
+    flex: 1; 
+    padding: 20px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #333;
+    box-sizing: border-box; 
+    max-width: 50%; 
+    background-color: #fff;
+    margin-right:20px;
 }
 
 .summary-container-total{
-  margin-top:20px;
-  flex: 1; 
-  padding: 20px;
-  padding-top: 10px;
-  text-align: center;
-  border-radius: 5px;
-  color: #333;
-  box-sizing: border-box; 
-  background-color: #fff;
-  margin-right:20px;
+    margin-top:20px;
+    flex: 1; 
+    padding: 20px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #333;
+    box-sizing: border-box; 
+    background-color: #fff;
+    margin-right:20px;
 }
 
 .first-wrapper > div:not(:last-child) {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 
 .weather-content {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .fa-solid, .fas {
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  font-size: 30px;
-  color:#555;
-  margin-top:5px;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 30px;
+    color:#555;
+    margin-top:5px;
 }
 
 .weather-label{
-  font-weight: bold;
-  color:#555;
+    font-weight: bold;
+    color:#555;
 }
 
 .weather-item {
-  display: flex;
-  flex-direction: column;
-  background: #eff5f9;
-  padding: 20px;
-  border-radius: 8px;
-  text-decoration: none; 
-  color: inherit;
+    display: flex;
+    flex-direction: column;
+    background: #eff5f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-decoration: none; 
+    color: inherit;
 }
 
 .summary-grid {
@@ -128,11 +125,11 @@ margin-right: 20px;
 }
 
 .summary-grid-first {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-}
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
 
 .summary-item {
     background: #eff5f9;
@@ -143,7 +140,7 @@ margin-right: 20px;
 }
 
 .summary-item:hover, .weather-item:hover {
-    transform: scale(1.05); /* Vergrößern beim Überfahren */
+    transform: scale(1.05); 
     background-color: #3498db; 
     color:#fff;
   }
@@ -175,7 +172,7 @@ h6, h4{
     color:#555;
 }
 
-  .calendar-mark {
+.calendar-mark {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -190,10 +187,11 @@ h6, h4{
     color: white;
     font-size: 14px;
     font-weight: bold;
-  }
+}
   
 
 @media (min-width: 768px) and (max-width: 1024px){
+  
     .summary-container {
         padding: 20px;
         text-align: center;
@@ -207,19 +205,19 @@ h6, h4{
     }
 
     .summary-greeting {
-      margin-left: 0px;
+        margin-left: 0px;
       }
 
       .summary-grid {
         grid-template-columns: repeat(2, 1fr);
-          gap: 10px !important; 
+        gap: 10px !important; 
       }
-      .weather-content {
-      gap: 10px !important; 
-  }
+    .weather-content {
+        gap: 10px !important; 
+      }
   }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
 
     .summary-greeting {
         display: flex;
@@ -253,7 +251,7 @@ h6, h4{
     }
 
     .weather-content {
-      grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 10px !important; 
     }
 }

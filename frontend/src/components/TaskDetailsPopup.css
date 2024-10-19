@@ -17,32 +17,31 @@
     flex-direction: column;
   }
   
-  .popup-content h2 {
+.popup-content h2 {
     margin-bottom: 11px;
     margin-left:10px;
     color: #3498db;
 }
 
-
-  .popup-content p {
+.popup-content p {
     margin-bottom: 20px;
     display: flex;
-  }
+}
   
-  .close-button {
+.close-button {
     align-self: flex-end;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.5em;
     color: #888;
-  }
+}
   
-  .close-button:hover {
+.close-button:hover {
     color: #555;
-  }
+}
   
-  .priority-button-popup {
+.priority-button-popup {
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
@@ -53,28 +52,26 @@
     margin-right: 10px;
     display: flex;
     justify-content: center;
-  }
+}
   
-  .priority-button-popup.urgent {
+.priority-button-popup.urgent {
     background-color: #f44336;
     color: white;
     margin-bottom: 10px;
 }
-  
-  
-  .priority-button-popup.medium {
+    
+.priority-button-popup.medium {
     background-color: #ffc107;
     margin-bottom: 10px;
-
-  }
+}
   
-  .priority-button-popup.low {
+.priority-button-popup.low {
     background-color: #4caf50;
     margin-bottom: 10px;
     color: white;
-  }
+}
   
-  .task-title-popup {
+.task-title-popup {
     font-weight: bold;
     margin-bottom: 4px;
     display: flex;
@@ -87,43 +84,43 @@
     bottom: 20px;
     right: 30px;
     gap: 10px !important;
-  }
+}
   
-  .edit-icon {
+.edit-icon {
     margin-right: 10px !important;
     cursor: pointer;
     color: #555;
     font-size: 18px;
-  }
+}
   
-  .delete-icon {
+.delete-icon {
     cursor: pointer;
     color: #555;
     font-size: 18px;
-  }
+}
 
-  .subtask-progress {
+.subtask-progress {
     font-size: 12px;
     margin-top: 8px;
     color:#555;
-  }
+}
   
-  .subtask-bar {
+.subtask-bar {
     width: 60%;
     height: 6px;
     background-color: #ddd;
     border-radius: 3px;
     overflow: hidden;
-  }
+}
   
-  .subtask-progress-fill {
+.subtask-progress-fill {
     height: 100%;
     background-color: rgba(248, 12, 99, 0.8);
     width: 0;
     transition: width 0.3s ease;
-  }
+}
 
-  .subtask-list {
+.subtask-list {
     list-style: none;
     padding: 0;
     display: flex;
@@ -133,27 +130,27 @@
 }
 
 .subtask-list {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 
 .subtask-list li {
-  display: flex;
-  margin-bottom: 8px; 
-  white-space: nowrap;
-  font-size: 14px; 
+    display: flex;
+    margin-bottom: 8px; 
+    white-space: nowrap;
+    font-size: 14px; 
 }
 
 label {
-  margin-top: 0px;
-  padding: 5px;
-  margin-bottom: 5px;
-  font-weight: normal;
+    margin-top: 0px;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
 }
 
 .subtask-label {
-  font-size: 14px; 
-  display: contents;
+    font-size: 14px; 
+    display: contents;
 }
 
 
